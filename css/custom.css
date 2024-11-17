@@ -2,3 +2,14 @@
     width: 200px;
     height: 200px;
 }
+
+.plan-svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+}
+
+#enjoy-svg {
+    position: relative;
+    top: -10px;
+}
