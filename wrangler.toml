@@ -1,0 +1,8 @@
+name = "jcustom-deck-patio"
+compatibility_date = "2026-02-08"
+pages_build_output_dir = "./dist"
+
+# TODO: When deploying, create a KV namespace and uncomment:
+# [[kv_namespaces]]
+# binding = "SESSION"
+# id = "your-kv-namespace-id"

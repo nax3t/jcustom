@@ -1,0 +1,129 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  schemas?: Record<string, unknown>[];
+}
+
+const {
+  title = siteConfig.seo.title,
+  description = siteConfig.seo.description,
+  canonicalUrl = siteConfig.url + '/',
+  schemas = [],
+} = Astro.props;
+
+const ogImage = siteConfig.url + '/images/logo-dark.webp';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.name} />
+
+    <!-- TODO: Remove before launch -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.png" />
+
+    <!-- Preload critical fonts -->
+    <link
+      rel="preload"
+      href="/fonts/hkgrotesk-semibold-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/hkgrotesk-regular-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Smooth scroll for reduced-motion users -->
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+
+    <!-- Structured Data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: siteConfig.name,
+        image: ogImage,
+        telephone: '+1-817-909-0973',
+        email: siteConfig.email,
+        url: siteConfig.url,
+        foundingDate: siteConfig.foundingDate,
+        priceRange: '$$',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: siteConfig.address.street,
+          addressLocality: siteConfig.address.city,
+          addressRegion: siteConfig.address.state,
+          postalCode: siteConfig.address.zip,
+          addressCountry: 'US',
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: siteConfig.geo.latitude,
+          longitude: siteConfig.geo.longitude,
+        },
+        areaServed: {
+          '@type': 'GeoCircle',
+          geoMidpoint: {
+            '@type': 'GeoCoordinates',
+            latitude: siteConfig.geo.latitude,
+            longitude: siteConfig.geo.longitude,
+          },
+          geoRadius: '80000',
+        },
+        sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
+      })}
+    />
+    {schemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+  </head>
+  <body class="antialiased">
+    <a href="#main" class="skip-to-content">Skip to Content</a>
+    <slot />
+  </body>
+</html>

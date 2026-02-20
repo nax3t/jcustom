@@ -1,0 +1,155 @@
+---
+import { portfolioItems, filterCategories } from '../data/portfolio';
+---
+
+<section class="pt-section pb-0" id="showcase">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-8">
+    <div class="text-center mb-20 sm:mb-14">
+      <div class="section-label justify-center">
+        <span>Portfolio</span>
+      </div>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,3.25rem)] leading-[1.15] tracking-[-0.01em]">
+        Project Showcase
+      </h2>
+    </div>
+
+    <!-- Filter -->
+    <div class="works-filter text-center mb-10">
+      {filterCategories.map(({ label, value }, i) => (
+        <a
+          href="#"
+          data-filter={value === 'all' ? '*' : `.${value}`}
+          class={i === 0 ? 'active' : ''}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Grid -->
+    <div id="portfolio-grid">
+      <div class="grid-sizer"></div>
+      <div class="gutter-sizer"></div>
+      {portfolioItems.map((item) => (
+        <div class={`work-item ${item.categories.join(' ')}`}>
+          <a
+            href={`/images/showcase/${item.image}`}
+            class="glightbox block"
+            data-gallery="showcase"
+            data-title={item.title}
+            data-description={item.category}
+          >
+            <div class="work-img">
+              <img
+                src={`/images/showcase/${item.image}`}
+                alt={item.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="work-intro">
+              <div class="work-title">{item.title}</div>
+              <div class="work-descr">{item.category}</div>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="bg-gray-light mt-12">
+    <div class="max-w-[1318px] mx-auto px-6 md:px-8 py-section-sm">
+      <div
+        x-data
+        x-intersect.once="$el.classList.add('animate-fade-up')"
+        class="opacity-0 flex flex-col lg:flex-row items-center justify-between gap-8"
+      >
+        <div class="lg:max-w-[60%]">
+          <h3 class="font-display text-[clamp(1.75rem,3vw,2.25rem)] leading-[1.15] tracking-[-0.01em] mb-3">
+            Ready to begin your journey?
+          </h3>
+          <p class="text-gray-text text-lg">
+            Create your ideal outdoor space with custom deck and patio designs from Fort Worth's premier builder.
+            Book a free consultation to bring your vision to life.
+          </p>
+        </div>
+        <div class="shrink-0">
+          <a href="#contact" class="btn btn-primary">
+            <span>Let's Talk</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import GLightbox from 'glightbox';
+  import 'glightbox/dist/css/glightbox.min.css';
+  import Isotope from 'isotope-layout';
+  import imagesLoaded from 'imagesloaded';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    GLightbox({ selector: '.glightbox' });
+
+    const grid = document.querySelector('#portfolio-grid');
+    if (!grid) return;
+
+    imagesLoaded(grid, () => {
+      const iso = new Isotope(grid as HTMLElement, {
+        itemSelector: '.work-item',
+        layoutMode: 'masonry',
+        percentPosition: true,
+        masonry: {
+          columnWidth: '.grid-sizer',
+          gutter: '.gutter-sizer',
+        },
+        transitionDuration: '0.4s',
+      });
+
+      document.querySelectorAll('.works-filter a').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const filter = (btn as HTMLElement).dataset.filter || '*';
+          iso.arrange({ filter: filter === '*' ? '*' : filter });
+          document.querySelector('.works-filter a.active')?.classList.remove('active');
+          btn.classList.add('active');
+        });
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  /* Isotope grid sizing */
+  .grid-sizer,
+  .work-item {
+    width: calc(33.333% - 11px);
+  }
+
+  .gutter-sizer {
+    width: 16px;
+  }
+
+  .work-item {
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 991px) {
+    .grid-sizer,
+    .work-item {
+      width: calc(50% - 8px);
+    }
+  }
+
+  @media (max-width: 575px) {
+    .grid-sizer,
+    .work-item {
+      width: 100%;
+    }
+    .gutter-sizer {
+      width: 0;
+    }
+  }
+</style>

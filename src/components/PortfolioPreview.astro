@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import { getPortfolioByService } from '../data/portfolio';
+
+interface Props {
+  serviceSlug: string;
+  cityName: string;
+}
+
+const { serviceSlug, cityName } = Astro.props;
+
+const items = getPortfolioByService(serviceSlug).slice(0, 4);
+
+// Dynamically import all showcase images
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/images/showcase/*.webp',
+);
+---
+
+{items.length > 0 && (
+  <section class="py-section-sm px-6 md:px-8 bg-gray-lighter">
+    <div class="max-w-[1318px] mx-auto">
+      <div class="text-center mb-16 sm:mb-10">
+        <h2 class="text-3xl sm:text-[36px] font-semibold leading-[1.196] tracking-tight mb-1">
+          Our Work in {cityName}
+        </h2>
+        <p class="text-lg text-gray font-sans-alt">
+          Browse examples from our portfolio.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {items.map(async (item) => {
+          const imagePath = `../assets/images/showcase/${item.image}`;
+          const imageModule = allImages[imagePath];
+          if (!imageModule) return null;
+          const image = (await imageModule()).default;
+
+          return (
+            <div class="overflow-hidden rounded-2xl">
+              <Image
+                src={image}
+                alt={item.alt}
+                width={400}
+                height={340}
+                class="w-full h-[260px] object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      <div class="text-center mt-10">
+        <a
+          href="/#showcase"
+          class="text-sm font-semibold uppercase tracking-wider text-black hover:text-accent transition-colors"
+        >
+          View All Projects &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+)}

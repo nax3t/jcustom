@@ -1,0 +1,46 @@
+---
+import { services } from '../data/services';
+---
+
+<section class="py-section px-6 md:px-8 bg-cream" id="services">
+  <div class="max-w-[1318px] mx-auto">
+    <div class="text-center mb-20 sm:mb-14">
+      <div class="section-label justify-center">
+        <span>What We Do</span>
+      </div>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,3.25rem)] leading-[1.15] tracking-[-0.01em]">
+        Our Services
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+      {services.map((service, i) => (
+        <div
+          x-data
+          x-intersect.once="$el.classList.add('animate-fade-up')"
+          class="text-center opacity-0 group"
+          style={`animation-delay: ${(i % 3) * 0.12}s`}
+        >
+          <div class="mb-6 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1">
+            <img
+              src={`/images/svg/${service.icon}`}
+              alt={service.iconAlt}
+              class="w-[180px] h-[180px] mx-auto"
+              loading="lazy"
+            />
+          </div>
+          <h3 class="text-2xl font-semibold tracking-tight mb-3">{service.title}</h3>
+          <p class="text-gray-text text-base leading-relaxed mb-5 max-w-[320px] mx-auto">
+            {service.description}
+          </p>
+          <a
+            href="#contact"
+            class="link-underline text-[12px] font-semibold uppercase tracking-[0.12em] text-black/70 hover:text-black transition-colors"
+          >
+            Learn More
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

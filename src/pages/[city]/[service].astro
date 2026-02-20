@@ -1,0 +1,174 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LandingNav from '../../components/LandingNav.astro';
+import CityServiceHero from '../../components/CityServiceHero.astro';
+import PortfolioPreview from '../../components/PortfolioPreview.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import Footer from '../../components/Footer.astro';
+import { cities } from '../../data/cities';
+import { services } from '../../data/services';
+import { siteConfig } from '../../data/siteConfig';
+import { getCityServiceContent } from '../../data/cityServiceContent';
+
+export function getStaticPaths() {
+  return cities.flatMap((city) =>
+    services.map((service) => ({
+      params: { city: city.slug, service: service.slug },
+      props: { city, service },
+    })),
+  );
+}
+
+const { city, service } = Astro.props;
+const content = getCityServiceContent(city, service);
+const canonicalUrl = `${siteConfig.url}/${city.slug}/${service.slug}/`;
+
+const otherServices = services.filter((s) => s.slug !== service.slug);
+const nearbyCities = cities.filter((c) => city.nearby.includes(c.slug));
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteConfig.url,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: city.name,
+      item: `${siteConfig.url}/${city.slug}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: service.shortTitle,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.title,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: siteConfig.name,
+    telephone: '+1-817-909-0973',
+    url: siteConfig.url,
+  },
+  areaServed: {
+    '@type': 'City',
+    name: city.name,
+    containedInPlace: {
+      '@type': 'State',
+      name: 'Texas',
+    },
+  },
+  description: service.description,
+};
+---
+
+<Layout title={content.metaTitle} description={content.metaDescription} canonicalUrl={canonicalUrl} schemas={[breadcrumbSchema, serviceSchema]}>
+  <LandingNav />
+  <main id="main">
+    <CityServiceHero
+      headline={content.headline}
+      intro={content.intro}
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: city.name, href: `/${city.slug}/` },
+        { label: service.shortTitle },
+      ]}
+    />
+
+    <!-- Service Detail -->
+    <section class="py-section px-6 md:px-8">
+      <div class="max-w-[900px] mx-auto">
+        <div class="flex justify-center mb-8">
+          <img
+            src={`/images/svg/${service.icon}`}
+            alt={service.iconAlt}
+            class="w-[120px] h-[120px]"
+          />
+        </div>
+        <h2 class="text-3xl sm:text-[36px] font-semibold leading-[1.196] tracking-tight mb-6 text-center">
+          {service.title}
+        </h2>
+        <p class="text-gray-text text-lg leading-relaxed mb-8">
+          {service.description}
+        </p>
+        <p class="text-gray-text text-lg leading-relaxed">
+          {content.localDetails}
+        </p>
+      </div>
+    </section>
+
+    <!-- Portfolio Preview -->
+    <PortfolioPreview serviceSlug={service.slug} cityName={city.name} />
+
+    <!-- CTA Banner -->
+    <section class="py-section-sm px-6 md:px-8 bg-dark text-white">
+      <div class="max-w-[900px] mx-auto text-center">
+        <h2 class="text-3xl sm:text-[36px] font-semibold leading-[1.196] tracking-tight mb-4">
+          Ready to Start Your {service.shortTitle} Project in {city.name}?
+        </h2>
+        <p class="text-white/80 text-lg mb-8">
+          Get a free consultation and quote from our experienced team.
+        </p>
+        <a
+          href="#contact"
+          class="inline-block px-10 py-4 text-[15px] font-semibold uppercase tracking-wider bg-accent text-white rounded-full hover:bg-accent/90 transition-colors duration-200"
+        >
+          Get a Free Quote
+        </a>
+      </div>
+    </section>
+
+    <!-- Cross Links -->
+    <section class="py-16 px-6 md:px-8">
+      <div class="max-w-[1318px] mx-auto">
+        <!-- Other Services -->
+        <div class="text-center mb-10">
+          <p class="text-gray text-lg mb-2">Other services in {city.name}:</p>
+          <div class="flex flex-wrap justify-center gap-3">
+            {otherServices.map((s) => (
+              <a
+                href={`/${city.slug}/${s.slug}/`}
+                class="px-4 py-2 text-sm border border-border rounded-full hover:border-black hover:text-black transition-colors"
+              >
+                {s.shortTitle}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Nearby Cities -->
+        {nearbyCities.length > 0 && (
+          <div class="text-center">
+            <p class="text-gray text-lg mb-2">
+              {service.shortTitle} in nearby cities:
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+              {nearbyCities.map((nc) => (
+                <a
+                  href={`/${nc.slug}/${service.slug}/`}
+                  class="px-4 py-2 text-sm border border-border rounded-full hover:border-black hover:text-black transition-colors"
+                >
+                  {nc.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <ContactSection />
+  </main>
+  <Footer />
+</Layout>

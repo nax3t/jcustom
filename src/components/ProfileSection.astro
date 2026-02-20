@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets';
+import profile1 from '../assets/images/ai/profile-1.webp';
+import profile2 from '../assets/images/ai/profile-2.webp';
+import profile3 from '../assets/images/ai/profile-3.webp';
+import profileBg1 from '../assets/images/stock/profile-1-bg.webp';
+import profileBg2 from '../assets/images/stock/profile-2-bg.webp';
+import profileBg3 from '../assets/images/stock/profile-3-bg.webp';
+
+const teamCards = [
+  {
+    image: profile1,
+    bg: profileBg1,
+    alt: 'Custom outdoor living space design rendering by JCustom Deck and Patio',
+    name: 'Design',
+    role: 'Illuminate your vision',
+    detail:
+      'We work closely with our clients to understand their vision and provide a realistic preview of the finished product before breaking ground.',
+  },
+  {
+    image: profile2,
+    bg: profileBg2,
+    alt: 'Premium decking materials sourced from trusted suppliers',
+    name: 'Build',
+    role: 'Bring your dream to life',
+    detail:
+      'We source quality materials from trusted providers to ensure durability and longevity for your project and the environment.',
+  },
+  {
+    image: profile3,
+    bg: profileBg3,
+    alt: 'Completed backyard retreat with lush landscaping and outdoor seating',
+    name: 'Outdoors',
+    role: 'Enjoy your outdoor escape',
+    detail:
+      "At JCustom Deck and Patio, we believe in the power of outdoor living. We're dedicated to creating spaces that inspire relaxation, connection, and a deep appreciation for the beauty of nature.",
+  },
+];
+---
+
+<section class="py-section px-6 md:px-8" id="profile">
+  <div class="max-w-[1318px] mx-auto">
+    <!-- Intro Text -->
+    <div class="mb-28 sm:mb-20 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
+      <div class="lg:col-span-1 linesAnimIn"
+           x-data x-intersect.once="$el.classList.add('is-visible')"
+           data-splitting="lines">
+        <h2 class="font-display text-[clamp(2.5rem,4vw,3.25rem)] leading-[1.15] tracking-[-0.01em]">
+          Transforming Dallas-Fort Worth outdoor spaces into luxurious retreats that reflect your unique lifestyle.
+        </h2>
+      </div>
+      <div class="text-lg leading-relaxed text-gray-text linesAnimIn"
+           x-data x-intersect.once="$el.classList.add('is-visible')"
+           data-splitting="lines">
+        At JCustom Deck and Patio, we blend innovative design with premium craftsmanship to create bespoke outdoor living spaces. Our expert team specializes in custom decks, elegant patios, and other stunning outdoor living spaces for North Texas homeowners that elevate your home's value and your quality of life.
+      </div>
+      <div class="text-lg leading-relaxed text-gray-text linesAnimIn"
+           x-data x-intersect.once="$el.classList.add('is-visible')"
+           data-splitting="lines">
+        From initial concept to final installation, we're committed to excellence in every detail. Experience the JCustom difference -- where your vision meets our expertise to create the outdoor oasis you've always dreamed of.
+      </div>
+    </div>
+
+    <!-- Team Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {teamCards.map((card, i) => (
+        <div
+          x-data
+          x-intersect.once="$el.classList.add('animate-fade-up')"
+          class="opacity-0 group"
+          style={`animation-delay: ${i * 0.15}s`}
+        >
+          <div class="relative overflow-hidden">
+            <!-- Background decoration -->
+            <div class="absolute inset-0 -z-10 scale-[1.03]">
+              <Image
+                src={card.bg}
+                alt=""
+                class="w-full h-full object-cover blur-sm opacity-60"
+                widths={[400, 600]}
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+
+            <!-- Card Image -->
+            <div class="relative overflow-hidden aspect-[4/5]">
+              <Image
+                src={card.image}
+                alt={card.alt}
+                class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                widths={[400, 600, 800]}
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <!-- Hover detail overlay -->
+              <div class="absolute inset-0 bg-black/75 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+                <p class="text-white text-center text-lg leading-relaxed">
+                  {card.detail}
+                </p>
+              </div>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="py-5 px-1 bg-white/95 backdrop-blur-sm">
+              <div class="text-xl font-semibold tracking-tight">{card.name}</div>
+              <div class="text-gray text-sm">{card.role}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import Splitting from 'splitting';
+  import 'splitting/dist/splitting.css';
+  import 'splitting/dist/splitting-cells.css';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    Splitting({ by: 'lines' });
+  });
+</script>

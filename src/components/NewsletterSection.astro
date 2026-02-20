@@ -1,0 +1,98 @@
+---
+// Newsletter section with email subscription form
+---
+
+<section
+  class="relative py-section-sm px-6 md:px-8 text-white bg-cover bg-top bg-fixed overflow-hidden grain"
+  style="background-image: url('/images/full-width-images/section-bg-3.webp');"
+>
+  <div class="absolute inset-0 bg-black/75"></div>
+
+  <div class="relative z-10 max-w-[800px] mx-auto">
+    <div
+      x-data="newsletterForm"
+      x-intersect.once="$el.classList.add('animate-fade-up')"
+      class="opacity-0"
+    >
+      <!-- Label -->
+      <div class="flex items-center gap-4 mb-10 sm:mb-6">
+        <div class="shrink-0">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            class="text-white/50"
+          >
+            <path d="M1.999 1v7.269l-2 1.456v13.275h24.001v-13.275l-2.001-1.453v-7.272h-20zm1 11.234v-10.234h18v10.233l-9 5.766-9-5.765zm19 .54v-3.17l1.001.764v11.632h-22.001v-11.641l1-.707.063 3.134 9.937 6.413 10-6.425z" />
+          </svg>
+        </div>
+        <h2 class="font-display text-[clamp(1.75rem,3vw,2rem)] leading-[1.15] tracking-[-0.01em]">
+          Stay informed with&nbsp;our newsletter
+        </h2>
+      </div>
+
+      <!-- Form -->
+      <form @submit.prevent="subscribe" class="flex flex-col sm:flex-row gap-3 mb-5">
+        <label for="newsletter-email" class="sr-only">Email Address</label>
+        <input
+          id="newsletter-email"
+          type="email"
+          placeholder="Your Email"
+          x-model="email"
+          required
+          class="flex-1 px-6 py-4 text-base bg-white/8 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-white/40 transition-colors"
+        />
+        <button
+          type="submit"
+          :disabled="submitting"
+          class="btn btn-outline whitespace-nowrap"
+        >
+          <span x-text="submitting ? 'Subscribing...' : 'Subscribe Now'"></span>
+        </button>
+      </form>
+
+      <p class="text-white/35 text-xs tracking-wide">
+        By subscribing, you agree to receive updates from JCustom Deck and Patio. See our Terms & Conditions.
+      </p>
+
+      <!-- Result -->
+      <div
+        x-show="message"
+        x-transition
+        class="mt-4 text-base"
+        :class="messageType === 'success' ? 'text-green-400' : 'text-red-400'"
+        role="region"
+        aria-live="polite"
+      >
+        <span x-text="message"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('newsletterForm', () => ({
+      email: '',
+      submitting: false,
+      message: '',
+      messageType: '',
+
+      async subscribe() {
+        this.submitting = true;
+        this.message = '';
+
+        // TODO: Wire to Mailchimp or email service
+        await new Promise((r) => setTimeout(r, 1000));
+
+        this.message = 'Thank you for subscribing!';
+        this.messageType = 'success';
+        this.email = '';
+        this.submitting = false;
+      },
+    }));
+  });
+</script>

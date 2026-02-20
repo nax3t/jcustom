@@ -1,0 +1,46 @@
+---
+import { cities } from '../data/cities';
+
+const sortedCities = [...cities].sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<section class="py-section px-6 md:px-8 bg-cream" id="service-areas">
+  <div class="max-w-[1318px] mx-auto">
+    <div class="text-center mb-20 sm:mb-14">
+      <div class="section-label justify-center">
+        <span>Coverage</span>
+      </div>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,3.25rem)] leading-[1.15] tracking-[-0.01em] mb-2">
+        Service Areas
+      </h2>
+      <p class="text-lg text-gray font-sans-alt">
+        Proudly serving homeowners across the Dallas-Fort Worth metroplex.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      {sortedCities.map((city, i) => (
+        <a
+          href={`/${city.slug}/`}
+          x-data
+          x-intersect.once="$el.classList.add('animate-fade-in')"
+          class="opacity-0 block px-4 py-3 text-center border border-black/8 hover:border-black/25 hover:shadow-sm transition-all duration-300 bg-white group"
+          style={`animation-delay: ${(i % 5) * 0.05}s`}
+        >
+          <span class="font-semibold text-sm group-hover:text-accent transition-colors duration-300">{city.name}</span>
+          <span class="block text-[11px] text-gray mt-0.5 tracking-wide">{city.county} County</span>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <p class="text-gray text-sm">
+        Don't see your city? We likely serve your area.{' '}
+        <a href="#contact" class="link-underline text-black font-semibold">
+          Contact us
+        </a>{' '}
+        to find out.
+      </p>
+    </div>
+  </div>
+</section>

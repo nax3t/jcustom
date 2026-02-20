@@ -1,0 +1,96 @@
+---
+// Hero section with video background and text rotator
+---
+
+<section
+  class="relative min-h-screen flex items-center overflow-hidden"
+  id="home"
+>
+  <!-- Video Background -->
+  <div class="absolute inset-0 z-0">
+    <video
+      class="w-full h-full object-cover"
+      preload="metadata"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="/video/poster.jpg"
+    >
+      <source src="/video/video.mp4" type="video/mp4" />
+      <source src="/video/video.webm" type="video/webm" />
+    </video>
+    <!-- Strong cinematic overlay — ensures text readability -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/75"></div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 max-w-[1318px] mx-auto px-6 md:px-8 py-24 text-white w-full">
+    <div
+      x-data="textRotator"
+      class="animate-fade-up"
+    >
+      <!-- Section label -->
+      <div class="section-label section-label-light mb-8">
+        <span>Crafting Luxury Outdoor Spaces in DFW</span>
+      </div>
+
+      <!-- Display serif headline -->
+      <h1 class="font-display font-semibold text-[clamp(3rem,8vw,7rem)] leading-[1.05] tracking-[-0.02em] mb-6 max-w-[900px]" style="text-shadow: 0 2px 30px rgba(0,0,0,0.4);">
+        <span
+          x-text="currentText"
+          :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+          class="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] inline-block"
+        ></span>
+      </h1>
+
+      <p class="text-lg sm:text-xl text-white/75 max-w-[520px] leading-relaxed mb-12" style="text-shadow: 0 1px 10px rgba(0,0,0,0.3);">
+        Bespoke decks, patios, and outdoor living spaces built with
+        precision craftsmanship for North Texas homeowners.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="#contact" class="btn btn-primary">
+          <span>Get Free Consultation</span>
+        </a>
+        <a href="#showcase" class="btn btn-outline">
+          <span>View Our Work</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+    <span class="text-white/40 text-[11px] uppercase tracking-[0.2em] font-semibold">Scroll</span>
+    <div class="w-px h-8 bg-white/20 relative overflow-hidden">
+      <div class="absolute inset-x-0 top-0 h-full bg-white/60 animate-[scroll-down-bounce_2s_ease-in-out_infinite]"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('textRotator', () => ({
+      phrases: [
+        'Bespoke Designs',
+        'Timeless Beauty',
+        'Where Nature Meets Luxury',
+      ],
+      currentIndex: 0,
+      currentText: 'Bespoke Designs',
+      visible: true,
+
+      init() {
+        setInterval(() => {
+          this.visible = false;
+          setTimeout(() => {
+            this.currentIndex = (this.currentIndex + 1) % this.phrases.length;
+            this.currentText = this.phrases[this.currentIndex];
+            this.visible = true;
+          }, 400);
+        }, 4000);
+      },
+    }));
+  });
+</script>
