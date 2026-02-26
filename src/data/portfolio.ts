@@ -70,6 +70,48 @@ export const portfolioItems: PortfolioItem[] = [
     image: 'empty-open-wooden-deck-diagonal-shot.webp',
     alt: 'Open wooden deck with diagonal board pattern',
   },
+  {
+    title: 'Custom Pergola Retreat',
+    category: 'Patios',
+    categories: ['patios'],
+    image: 'custom-pergola-retreat.webp',
+    alt: 'Modern white pergola with outdoor grilling station and manicured lawn',
+  },
+  {
+    title: 'Outdoor Kitchen & Bar',
+    category: 'Decks & Patios',
+    categories: ['decks', 'patios'],
+    image: 'outdoor-kitchen-grill.webp',
+    alt: 'Covered pergola with built-in grill, dining area, and fire pit at sunset',
+  },
+  {
+    title: 'Pool Deck Surround',
+    category: 'Decks',
+    categories: ['decks'],
+    image: 'pool-deck-surround.webp',
+    alt: 'Residential pool with surrounding deck and patio area overlooking landscaped yard',
+  },
+  {
+    title: 'Stamped Concrete Patio',
+    category: 'Patios',
+    categories: ['patios'],
+    image: 'stamped-concrete-patio.webp',
+    alt: 'Elegant paver patio with wicker dining furniture and symmetrical landscaping',
+  },
+  {
+    title: 'Al Fresco Dining Terrace',
+    category: 'Patios',
+    categories: ['patios'],
+    image: 'al-fresco-dining-terrace.webp',
+    alt: 'Rustic outdoor dining table set on stone patio with wisteria and garden chairs',
+  },
+  {
+    title: 'Elevated Deck Retreat',
+    category: 'Decks',
+    categories: ['decks'],
+    image: 'IMG_0455-1.webp',
+    alt: 'Elevated composite deck with railing and outdoor seating overlooking a landscaped yard',
+  },
 ];
 
 export const filterCategories = [

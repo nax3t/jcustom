@@ -3,120 +3,95 @@ import { Image } from 'astro:assets';
 import profile1 from '../assets/images/ai/profile-1.webp';
 import profile2 from '../assets/images/ai/profile-2.webp';
 import profile3 from '../assets/images/ai/profile-3.webp';
-import profileBg1 from '../assets/images/stock/profile-1-bg.webp';
-import profileBg2 from '../assets/images/stock/profile-2-bg.webp';
-import profileBg3 from '../assets/images/stock/profile-3-bg.webp';
 
-const teamCards = [
+const steps = [
   {
+    num: '01',
     image: profile1,
-    bg: profileBg1,
-    alt: 'Custom outdoor living space design rendering by JCustom Deck and Patio',
-    name: 'Design',
-    role: 'Illuminate your vision',
-    detail:
-      'We work closely with our clients to understand their vision and provide a realistic preview of the finished product before breaking ground.',
+    alt: 'Architect reviewing construction blueprints and design plans',
+    title: 'Design',
+    description:
+      'We start with a free consultation to understand your vision, lifestyle, and property. You receive a detailed custom design plan before any work begins.',
   },
   {
+    num: '02',
     image: profile2,
-    bg: profileBg2,
-    alt: 'Premium decking materials sourced from trusted suppliers',
-    name: 'Build',
-    role: 'Bring your dream to life',
-    detail:
-      'We source quality materials from trusted providers to ensure durability and longevity for your project and the environment.',
+    alt: 'Craftsman working on premium deck construction',
+    title: 'Build',
+    description:
+      'Our craftsmen bring your design to life using premium materials from Trex, TimberTech, and other trusted brands — with meticulous attention to every detail.',
   },
   {
+    num: '03',
     image: profile3,
-    bg: profileBg3,
-    alt: 'Completed backyard retreat with lush landscaping and outdoor seating',
-    name: 'Outdoors',
-    role: 'Enjoy your outdoor escape',
-    detail:
-      "At JCustom Deck and Patio, we believe in the power of outdoor living. We're dedicated to creating spaces that inspire relaxation, connection, and a deep appreciation for the beauty of nature.",
+    alt: 'Finished luxury backyard with pool, fireplace, and string lights at twilight',
+    title: 'Enjoy',
+    description:
+      'Step into your new outdoor retreat. Built to withstand the Texas elements and designed to impress, your space is ready for years of relaxation and entertainment.',
   },
 ];
 ---
 
-<section class="py-section px-6 md:px-8" id="profile">
+<section class="py-section px-6 md:px-8" id="process">
   <div class="max-w-[1318px] mx-auto">
-    <!-- Intro Text -->
-    <div class="mb-28 sm:mb-20 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
-      <div class="lg:col-span-1 linesAnimIn"
-           x-data x-intersect.once="$el.classList.add('is-visible')"
-           data-splitting="lines">
-        <h2 class="font-display text-[clamp(2.5rem,4vw,3.25rem)] leading-[1.15] tracking-[-0.01em]">
-          Transforming Dallas-Fort Worth outdoor spaces into luxurious retreats that reflect your unique lifestyle.
-        </h2>
+    <!-- Section Header -->
+    <div
+      class="text-center mb-20 sm:mb-14 opacity-0"
+      x-data
+      x-intersect.once="$el.classList.add('animate-fade-up')"
+    >
+      <div class="section-label justify-center mb-4">
+        <span>How It Works</span>
       </div>
-      <div class="text-lg leading-relaxed text-gray-text linesAnimIn"
-           x-data x-intersect.once="$el.classList.add('is-visible')"
-           data-splitting="lines">
-        At JCustom Deck and Patio, we blend innovative design with premium craftsmanship to create bespoke outdoor living spaces. Our expert team specializes in custom decks, elegant patios, and other stunning outdoor living spaces for North Texas homeowners that elevate your home's value and your quality of life.
-      </div>
-      <div class="text-lg leading-relaxed text-gray-text linesAnimIn"
-           x-data x-intersect.once="$el.classList.add('is-visible')"
-           data-splitting="lines">
-        From initial concept to final installation, we're committed to excellence in every detail. Experience the JCustom difference -- where your vision meets our expertise to create the outdoor oasis you've always dreamed of.
-      </div>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,3.25rem)] leading-[1.15] tracking-[-0.01em] mb-4">
+        From Vision to Reality
+      </h2>
+      <p class="text-gray-text text-lg max-w-[540px] mx-auto">
+        A proven three-step process refined over nearly two decades of building premium outdoor spaces across DFW.
+      </p>
     </div>
 
-    <!-- Team Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {teamCards.map((card, i) => (
+    <!-- Process Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+      {steps.map((step, i) => (
         <div
           x-data
           x-intersect.once="$el.classList.add('animate-fade-up')"
-          class="opacity-0 group"
-          style={`animation-delay: ${i * 0.15}s`}
+          class="opacity-0"
+          style={`animation-delay: ${(i + 1) * 0.1}s`}
         >
-          <div class="relative overflow-hidden">
-            <!-- Background decoration -->
-            <div class="absolute inset-0 -z-10 scale-[1.03]">
-              <Image
-                src={card.bg}
-                alt=""
-                class="w-full h-full object-cover blur-sm opacity-60"
-                widths={[400, 600]}
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-            </div>
-
-            <!-- Card Image -->
-            <div class="relative overflow-hidden aspect-[4/5]">
-              <Image
-                src={card.image}
-                alt={card.alt}
-                class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                widths={[400, 600, 800]}
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-              <!-- Hover detail overlay -->
-              <div class="absolute inset-0 bg-black/75 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-                <p class="text-white text-center text-lg leading-relaxed">
-                  {card.detail}
-                </p>
-              </div>
-            </div>
-
-            <!-- Card Footer -->
-            <div class="py-5 px-1 bg-white/95 backdrop-blur-sm">
-              <div class="text-xl font-semibold tracking-tight">{card.name}</div>
-              <div class="text-gray text-sm">{card.role}</div>
-            </div>
+          <!-- Image -->
+          <div class="relative overflow-hidden mb-6 group">
+            <Image
+              src={step.image}
+              alt={step.alt}
+              class="w-full block transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              widths={[400, 600, 800]}
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
           </div>
+
+          <!-- Step number + title + description (always visible) -->
+          <div class="flex items-baseline gap-4 mb-3">
+            <span class="text-accent text-[13px] font-semibold tracking-wider shrink-0">{step.num}</span>
+            <h3 class="text-xl font-semibold tracking-tight">{step.title}</h3>
+          </div>
+          <p class="text-gray-text text-base leading-relaxed pl-10">
+            {step.description}
+          </p>
         </div>
       ))}
     </div>
+
+    <!-- CTA -->
+    <div
+      class="text-center mt-16 sm:mt-12 opacity-0"
+      x-data
+      x-intersect.once="$el.classList.add('animate-fade-up')"
+    >
+      <a href="#contact" class="btn btn-primary">
+        <span>Start With a Free Consultation</span>
+      </a>
+    </div>
   </div>
 </section>
-
-<script>
-  import Splitting from 'splitting';
-  import 'splitting/dist/splitting.css';
-  import 'splitting/dist/splitting-cells.css';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    Splitting({ by: 'lines' });
-  });
-</script>

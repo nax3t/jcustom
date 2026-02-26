@@ -72,33 +72,35 @@ const features = [
         </div>
       </div>
 
-      <!-- Images -->
-      <div class="relative min-h-[400px]">
+      <!-- Images: 2-image overlap (original call-action-3 pattern) -->
+      <div class="relative mt-[15px] text-end">
+        <!-- Large main image — right-aligned -->
         <div
-          class="w-[65%] z-10"
+          class="w-[67.38%] ml-auto overflow-hidden transform-gpu"
           x-data
-          x-intersect.once="$el.classList.add('animate-scale-in')"
+          x-intersect.once="$el.querySelector('img').classList.add('animate-scale-in')"
         >
           <Image
             src={img1}
-            alt="Custom outdoor deck project by JCustom Deck and Patio"
-            class="shadow-xl"
-            widths={[300, 500, 700]}
-            sizes="(max-width: 1024px) 65vw, 33vw"
+            alt="Modern pool deck with lounge furniture, fire bowl, and lush landscaping"
+            class="w-full scale-[1.2]"
+            widths={[400, 600]}
+            sizes="(max-width: 1024px) 67vw, 34vw"
           />
         </div>
+        <!-- Overlapping image — left side, vertically centered -->
         <div
-          class="w-[55%] ml-auto mt-[-15%] relative z-20"
+          class="absolute top-0 left-[54px] w-[41.5%] h-full flex items-center overflow-hidden transform-gpu"
           x-data
-          x-intersect.once="$el.classList.add('animate-scale-in')"
-          style="animation-delay: 0.2s"
+          x-intersect.once="$el.querySelector('img').classList.add('animate-scale-in')"
         >
           <Image
             src={img2}
-            alt="Completed patio and outdoor living area by JCustom"
-            class="shadow-xl"
+            alt="Rustic outdoor dining table set on a stone patio with wisteria"
+            class="w-full scale-[1.2]"
+            style="animation-delay: 0.2s"
             widths={[300, 500]}
-            sizes="(max-width: 1024px) 55vw, 28vw"
+            sizes="(max-width: 1024px) 42vw, 21vw"
           />
         </div>
       </div>
