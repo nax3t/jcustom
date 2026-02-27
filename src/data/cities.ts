@@ -14,7 +14,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'As the heart of Tarrant County, Fort Worth blends Western heritage with modern living. Its warm climate and spacious properties make it ideal for outdoor living spaces.',
+      'We design and build custom decks, patios, pergolas, outdoor kitchens, and fences for Fort Worth homeowners. From first consultation to final walkthrough, our team delivers expert craftsmanship backed by over 20 years of experience.',
     nearby: ['benbrook', 'arlington', 'north-richland-hills', 'crowley'],
   },
   {
@@ -23,7 +23,7 @@ export const cities: City[] = [
     county: 'Dallas',
     state: 'TX',
     description:
-      'Dallas homeowners enjoy long outdoor seasons and a vibrant lifestyle that extends into beautifully designed backyards and entertainment areas.',
+      'Our team brings two decades of expertise to every Dallas outdoor living project. Whether you\'re planning a multi-level deck, a stone patio, or a complete backyard renovation, we handle the full process from design through installation.',
     nearby: ['irving', 'richardson', 'grand-prairie', 'cedar-hill'],
   },
   {
@@ -32,7 +32,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Centrally located between Dallas and Fort Worth, Arlington is home to families who love entertaining outdoors in their spacious suburban backyards.',
+      'JCustom Deck and Patio helps Arlington homeowners create outdoor spaces built for real life — from durable composite decks to fully equipped outdoor kitchens. Every project is custom-designed and professionally installed.',
     nearby: ['fort-worth', 'grand-prairie', 'mansfield', 'hurst'],
   },
   {
@@ -41,7 +41,7 @@ export const cities: City[] = [
     county: 'Collin',
     state: 'TX',
     description:
-      'Plano is known for its upscale neighborhoods and well-maintained properties, where custom outdoor living spaces add significant value to homes.',
+      'We build premium outdoor living spaces for Plano homeowners who expect quality. Custom decks, patios, pergolas, and more — each project is designed around your property and built with materials that stand the test of time.',
     nearby: ['frisco', 'allen', 'richardson', 'mckinney'],
   },
   {
@@ -50,7 +50,7 @@ export const cities: City[] = [
     county: 'Collin/Denton',
     state: 'TX',
     description:
-      'One of the fastest-growing cities in America, Frisco features newer homes and communities where homeowners invest in premium outdoor spaces.',
+      'From custom decks to outdoor kitchens, we help Frisco homeowners extend their living space beyond four walls. Our experienced team designs and builds outdoor environments tailored to your property and lifestyle.',
     nearby: ['plano', 'prosper', 'mckinney', 'allen'],
   },
   {
@@ -59,7 +59,7 @@ export const cities: City[] = [
     county: 'Collin',
     state: 'TX',
     description:
-      'McKinney combines historic charm with new development, and its growing neighborhoods are perfect for custom decks, patios, and outdoor kitchens.',
+      'JCustom Deck and Patio delivers expert outdoor construction to McKinney homeowners. We build custom decks, patios, pergolas, fences, and more — all designed to complement your home and built to last.',
     nearby: ['frisco', 'allen', 'plano', 'prosper'],
   },
   {
@@ -68,7 +68,7 @@ export const cities: City[] = [
     county: 'Denton',
     state: 'TX',
     description:
-      'A vibrant college town with a growing residential base, Denton homeowners appreciate quality outdoor living that complements the area\'s creative spirit.',
+      'We bring professional outdoor living solutions to Denton homeowners. Our team designs and installs custom decks, covered patios, pergolas, and outdoor entertainment areas using premium materials and proven techniques.',
     nearby: ['flower-mound', 'lewisville', 'trophy-club', 'prosper'],
   },
   {
@@ -77,7 +77,7 @@ export const cities: City[] = [
     county: 'Dallas/Tarrant',
     state: 'TX',
     description:
-      'Grand Prairie sits between Dallas and Fort Worth, offering affordable homes with generous lot sizes perfect for custom outdoor improvements.',
+      'Our team serves Grand Prairie with custom outdoor living projects built to the highest standards. From composite decks and stone patios to pergolas and outdoor kitchens, we handle every detail.',
     nearby: ['arlington', 'dallas', 'irving', 'mansfield'],
   },
   {
@@ -86,7 +86,7 @@ export const cities: City[] = [
     county: 'Dallas',
     state: 'TX',
     description:
-      'Irving\'s diverse neighborhoods range from established homes to newer developments, all benefiting from well-designed outdoor living spaces.',
+      'JCustom Deck and Patio designs and builds outdoor spaces that Irving homeowners love to use. Custom decks, patios, fences, and more — all professionally installed with quality materials and expert craftsmanship.',
     nearby: ['dallas', 'grand-prairie', 'grapevine', 'carrollton'],
   },
   {
@@ -95,7 +95,7 @@ export const cities: City[] = [
     county: 'Tarrant/Denton',
     state: 'TX',
     description:
-      'One of the most affluent communities in DFW, Southlake homeowners expect premium craftsmanship in their luxury outdoor living environments.',
+      'We specialize in premium outdoor living construction for Southlake homeowners. From elegant pergolas and luxury patios to custom-designed outdoor kitchens, every project reflects the quality and attention to detail your property deserves.',
     nearby: ['colleyville', 'keller', 'grapevine', 'trophy-club'],
   },
   {
@@ -104,7 +104,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Colleyville\'s tree-lined streets and estate-size lots provide the perfect canvas for custom outdoor spaces with pools, kitchens, and entertainment areas.',
+      'Our team delivers custom outdoor living spaces crafted to match the character of Colleyville properties. We build decks, patios, pergolas, and outdoor entertainment areas with premium materials and meticulous attention to detail.',
     nearby: ['southlake', 'grapevine', 'keller', 'bedford'],
   },
   {
@@ -113,7 +113,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'A family-friendly community with excellent schools, Keller residents love creating backyard retreats for year-round outdoor enjoyment.',
+      'JCustom Deck and Patio helps Keller families create the backyard they\'ve always wanted. We design and build custom decks, covered patios, pergolas, outdoor kitchens, and fences — each project tailored to your home.',
     nearby: ['southlake', 'colleyville', 'north-richland-hills', 'fort-worth'],
   },
   {
@@ -122,7 +122,7 @@ export const cities: City[] = [
     county: 'Denton',
     state: 'TX',
     description:
-      'Flower Mound\'s scenic landscape and upscale neighborhoods make it a prime location for custom pergolas, patios, and outdoor entertainment areas.',
+      'We design and install custom outdoor living spaces for Flower Mound homeowners. From hardwood decks and stone patios to shade structures and outdoor kitchens, our team builds it right the first time.',
     nearby: ['lewisville', 'grapevine', 'trophy-club', 'denton'],
   },
   {
@@ -131,7 +131,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Known for its charming downtown and wine culture, Grapevine homeowners appreciate outdoor spaces designed for relaxation and entertaining.',
+      'Our experienced team brings expert outdoor craftsmanship to Grapevine homeowners. We build custom decks, patios, pergolas, and entertainment areas designed for years of enjoyment.',
     nearby: ['colleyville', 'southlake', 'irving', 'flower-mound'],
   },
   {
@@ -140,7 +140,7 @@ export const cities: City[] = [
     county: 'Denton',
     state: 'TX',
     description:
-      'This master-planned community features homes with generous outdoor spaces, ideal for custom decks, pergolas, and resort-style backyards.',
+      'JCustom Deck and Patio serves Trophy Club with custom-designed outdoor living spaces. From elevated decks and shaded pergolas to fully equipped outdoor kitchens, we build environments made for relaxing and entertaining.',
     nearby: ['southlake', 'flower-mound', 'denton', 'keller'],
   },
   {
@@ -149,7 +149,7 @@ export const cities: City[] = [
     county: 'Collin/Denton',
     state: 'TX',
     description:
-      'Prosper is one of DFW\'s fastest-growing luxury communities, with new-construction homes that benefit from premium outdoor living additions.',
+      'We help Prosper homeowners complete their outdoor vision with custom-built decks, patios, pergolas, and more. Every project is designed to integrate with your home\'s architecture and built with premium materials.',
     nearby: ['frisco', 'mckinney', 'denton', 'flower-mound'],
   },
   {
@@ -158,7 +158,7 @@ export const cities: City[] = [
     county: 'Collin',
     state: 'TX',
     description:
-      'Allen offers a blend of established and new neighborhoods where families invest in quality outdoor spaces for entertaining and relaxation.',
+      'Our team delivers professional outdoor living construction to Allen homeowners. We handle everything from custom deck design and patio installation to pergolas, outdoor kitchens, and fences.',
     nearby: ['plano', 'mckinney', 'frisco', 'richardson'],
   },
   {
@@ -167,7 +167,7 @@ export const cities: City[] = [
     county: 'Dallas/Denton',
     state: 'TX',
     description:
-      'Carrollton\'s central location and diverse housing stock make it a great market for deck, patio, and fence upgrades that enhance property value.',
+      'JCustom Deck and Patio builds custom outdoor spaces that add lasting value to Carrollton homes. Decks, patios, pergolas, outdoor kitchens, and fences — expertly designed and professionally installed.',
     nearby: ['irving', 'lewisville', 'plano', 'richardson'],
   },
   {
@@ -176,7 +176,7 @@ export const cities: City[] = [
     county: 'Denton',
     state: 'TX',
     description:
-      'Near Lewisville Lake, homeowners here love outdoor living spaces that take advantage of the area\'s natural beauty and warm Texas weather.',
+      'We bring over 20 years of outdoor living expertise to Lewisville homeowners. Our team designs and builds custom decks, patios, pergolas, and outdoor entertainment areas from the ground up.',
     nearby: ['flower-mound', 'carrollton', 'denton', 'irving'],
   },
   {
@@ -185,7 +185,7 @@ export const cities: City[] = [
     county: 'Dallas/Collin',
     state: 'TX',
     description:
-      'Richardson\'s established neighborhoods and tech-corridor professionals appreciate well-crafted outdoor improvements that add lasting value.',
+      'Our team serves Richardson homeowners with custom outdoor living projects built to last. From composite decks and stone patios to outdoor kitchens and shade structures, we deliver expert results on every build.',
     nearby: ['plano', 'dallas', 'allen', 'carrollton'],
   },
   {
@@ -194,7 +194,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Mansfield\'s growing community and spacious lots provide excellent opportunities for custom outdoor living spaces and backyard transformations.',
+      'JCustom Deck and Patio designs and builds outdoor living spaces that Mansfield families use every day. Custom decks, patios, pergolas, and more — built with quality materials and backed by decades of experience.',
     nearby: ['arlington', 'burleson', 'grand-prairie', 'fort-worth'],
   },
   {
@@ -203,7 +203,7 @@ export const cities: City[] = [
     county: 'Johnson/Tarrant',
     state: 'TX',
     description:
-      'South of Fort Worth, Burleson offers a small-town feel with larger properties perfect for expansive decks, patios, and outdoor entertainment.',
+      'We help Burleson homeowners make the most of their outdoor space with custom-built decks, patios, pergolas, and outdoor kitchens. Every project is designed to fit your property and built to withstand the elements.',
     nearby: ['mansfield', 'crowley', 'fort-worth', 'aledo'],
   },
   {
@@ -212,7 +212,7 @@ export const cities: City[] = [
     county: 'Parker',
     state: 'TX',
     description:
-      'The seat of Parker County, Weatherford\'s rural estates and growing subdivisions are ideal for custom outdoor living projects.',
+      'Our team brings professional outdoor construction to Weatherford homeowners. We design and build custom decks, patios, pergolas, outdoor kitchens, and fences — all tailored to your property and lifestyle.',
     nearby: ['aledo', 'fort-worth', 'granbury', 'benbrook'],
   },
   {
@@ -221,7 +221,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'North Richland Hills is a well-established mid-cities community where homeowners enhance their properties with quality outdoor living spaces.',
+      'JCustom Deck and Patio delivers quality outdoor living projects to North Richland Hills homeowners. From custom decks and covered patios to pergolas and fence installations, we build spaces designed for everyday enjoyment.',
     nearby: ['keller', 'hurst', 'fort-worth', 'bedford'],
   },
   {
@@ -230,7 +230,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Part of the HEB community, Hurst offers convenient mid-cities living with homes that benefit from custom deck and patio additions.',
+      'We build custom outdoor living spaces for Hurst homeowners who want quality craftsmanship. Decks, patios, pergolas, outdoor kitchens, and fences — each project is designed to enhance your home and built to last.',
     nearby: ['euless', 'bedford', 'north-richland-hills', 'arlington'],
   },
   {
@@ -239,7 +239,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Centrally located in the mid-cities, Euless homeowners appreciate outdoor improvements that maximize their property\'s potential.',
+      'Our experienced team helps Euless homeowners create functional, beautiful outdoor spaces. We design and install custom decks, patios, shade structures, and outdoor entertainment areas using premium materials.',
     nearby: ['hurst', 'bedford', 'grapevine', 'irving'],
   },
   {
@@ -248,7 +248,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Bedford completes the HEB triangle with mature neighborhoods ready for outdoor living upgrades including decks, patios, and pergolas.',
+      'JCustom Deck and Patio serves Bedford homeowners with custom outdoor living construction. From deck builds and patio installations to pergolas and outdoor kitchens, we handle every phase of your project.',
     nearby: ['hurst', 'euless', 'colleyville', 'north-richland-hills'],
   },
   {
@@ -257,7 +257,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Just south of Fort Worth, Crowley is a growing community where families are investing in custom outdoor living spaces.',
+      'We bring expert craftsmanship and premium materials to every outdoor project in Crowley. Custom decks, patios, pergolas, fences, and more — designed around your home and built to stand the test of time.',
     nearby: ['fort-worth', 'burleson', 'mansfield', 'benbrook'],
   },
   {
@@ -266,7 +266,7 @@ export const cities: City[] = [
     county: 'Parker',
     state: 'TX',
     description:
-      'Aledo\'s rural charm and growing luxury home market make it perfect for premium outdoor living projects with expansive designs.',
+      'Our team designs and builds premium outdoor living spaces for Aledo homeowners. From expansive decks and covered patios to outdoor kitchens and custom fences, we deliver craftsmanship that matches your standards.',
     nearby: ['weatherford', 'fort-worth', 'benbrook', 'granbury'],
   },
   {
@@ -275,7 +275,7 @@ export const cities: City[] = [
     county: 'Hood',
     state: 'TX',
     description:
-      'A lakeside community southwest of Fort Worth, Granbury homeowners love outdoor spaces that embrace the area\'s scenic waterfront lifestyle.',
+      'JCustom Deck and Patio helps Granbury homeowners create outdoor spaces perfect for relaxing and entertaining. We build custom decks, patios, pergolas, and outdoor kitchens with expert precision and quality materials.',
     nearby: ['weatherford', 'aledo', 'burleson', 'benbrook'],
   },
   {
@@ -284,7 +284,7 @@ export const cities: City[] = [
     county: 'Dallas',
     state: 'TX',
     description:
-      'Cedar Hill\'s rolling terrain and nature preserves inspire outdoor living designs that blend seamlessly with the natural landscape.',
+      'We design and install custom outdoor living spaces for Cedar Hill homeowners. Decks, patios, pergolas, outdoor kitchens, and fences — every project is built with expert craftsmanship and premium materials.',
     nearby: ['dallas', 'grand-prairie', 'mansfield', 'arlington'],
   },
   {
@@ -293,7 +293,7 @@ export const cities: City[] = [
     county: 'Tarrant',
     state: 'TX',
     description:
-      'Home to our headquarters, Benbrook is where JCustom Deck and Patio was founded. We know this community inside and out.',
+      'Home to our headquarters, Benbrook is where JCustom Deck and Patio was founded. We build custom decks, patios, pergolas, outdoor kitchens, and fences for our neighbors with the same care we put into our own homes.',
     nearby: ['fort-worth', 'crowley', 'aledo', 'weatherford'],
   },
 ];

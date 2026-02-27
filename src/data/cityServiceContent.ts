@@ -39,8 +39,8 @@ function generateFallbackContent(
 
   return {
     headline: `${serviceTitle} in ${cityName}, ${state}`,
-    intro: `Looking for professional ${shortTitle.toLowerCase()} in ${cityName}? JCustom Deck and Patio brings over 20 years of experience building premium outdoor living spaces for homeowners across the Dallas-Fort Worth metroplex. We proudly serve ${cityName} and surrounding ${city.county} County communities.`,
-    localDetails: `${cityName} homeowners enjoy a long outdoor season thanks to the North Texas climate. ${city.description} Our team understands the local building codes and HOA requirements in ${cityName}, ensuring your project is completed to the highest standards.`,
+    intro: `JCustom Deck and Patio designs and builds exceptional ${shortTitle.toLowerCase()} for homeowners in ${cityName} and throughout ${city.county} County. With over 20 years of experience across the DFW metroplex, we combine expert craftsmanship with premium materials to create outdoor spaces you'll enjoy for years to come.`,
+    localDetails: `From initial design consultation through final installation, our team manages every detail of your ${shortTitle.toLowerCase()} project. We use high-quality materials built to withstand North Texas weather and back every project with our satisfaction guarantee. Whether you're planning a complete backyard transformation or a focused upgrade, we'll work with you to create the right solution for your home in ${cityName}.`,
     metaTitle: `${shortTitle} in ${cityName}, ${state} | JCustom Deck and Patio`,
     metaDescription: `Professional ${shortTitle.toLowerCase()} in ${cityName}, TX. Custom design & expert installation by JCustom Deck and Patio. Serving DFW since 2005. Free consultation!`,
   };
