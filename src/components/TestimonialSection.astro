@@ -18,9 +18,12 @@ import { testimonials } from '../data/testimonials';
         <div class="section-label section-label-light justify-center mb-4">
           <span>Testimonials</span>
         </div>
-        <h2 class="font-display text-[clamp(2.5rem,5vw,3.25rem)] leading-[1.15] tracking-[-0.01em]">
+        <h2 class="font-display text-[clamp(2.5rem,5vw,3.25rem)] leading-[1.15] tracking-[-0.01em] mb-4">
           What DFW Homeowners Say
         </h2>
+        <p class="text-white/50 text-sm font-semibold uppercase tracking-[0.1em]">
+          Averaging 5 stars across 50+ reviews
+        </p>
       </div>
 
       <div
@@ -42,7 +45,9 @@ import { testimonials } from '../data/testimonials';
                     {t.quote}
                   </p>
                   <footer>
-                    <span class="text-white/50 text-sm font-semibold uppercase tracking-[0.1em]">{t.author}</span>
+                    <span class="text-white/50 text-sm font-semibold uppercase tracking-[0.1em]">
+                      {t.author} &bull; {t.project} &bull; {t.source}
+                    </span>
                     <div class="flex justify-center gap-1 mt-2">
                       {Array.from({ length: t.stars }).map(() => (
                         <svg class="w-3.5 h-3.5 text-accent" fill="currentColor" viewBox="0 0 20 20">
