@@ -20,3 +20,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# SMTP credentials (server-only)
+public/api/smtp_config.php
