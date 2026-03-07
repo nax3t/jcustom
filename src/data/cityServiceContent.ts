@@ -12,7 +12,6 @@ export interface CityServiceContent {
 /**
  * Unique content per city+service permutation.
  * Key format: "{citySlug}--{serviceSlug}"
- * Phase 2 will bulk-generate AI content to populate this map.
  */
 export const cityServiceContent: Record<string, CityServiceContent> = {};
 
@@ -30,18 +29,70 @@ export function getCityServiceContent(
   return generateFallbackContent(city, service);
 }
 
+interface ServiceTemplate {
+  intro: (cityName: string) => string;
+  localDetails: (cityName: string) => string;
+}
+
+const serviceTemplates: Record<string, ServiceTemplate> = {
+  'custom-decks': {
+    intro: (cityName) =>
+      `There's nothing like stepping outside with your morning coffee onto a deck that was designed around your home. We build custom decks in ${cityName} — composite, hardwood, multi-level — whatever fits your space and how you actually use it.`,
+    localDetails: (cityName) =>
+      `Every deck we build in ${cityName} starts with an on-site visit. We look at your yard, talk through what you want, and put together a design that works with your home's layout and the North Texas climate. We handle permits, material sourcing, and construction from start to finish.`,
+  },
+  patios: {
+    intro: (cityName) =>
+      `A well-built patio changes how you use your backyard. We design and install patios for ${cityName} homeowners using concrete pavers, natural stone, and stamped concrete — with covered options to make the space usable year-round.`,
+    localDetails: (cityName) =>
+      `Our patio projects in ${cityName} are built on properly graded and compacted bases, with drainage planned from day one. We work with you to choose materials that complement your home and hold up through Texas summers, heavy rain, and everything in between.`,
+  },
+  pergolas: {
+    intro: (cityName) =>
+      `The right shade structure makes your outdoor space usable even in July. We build custom pergolas in ${cityName} — from traditional cedar designs to modern louvered systems — that add both function and style to your backyard.`,
+    localDetails: (cityName) =>
+      `Whether you're looking for a freestanding pergola over your patio or an attached structure off the back of the house, we'll design something that fits. Our pergola builds in ${cityName} include proper footings, engineered connections, and finishes that stand up to the Texas sun.`,
+  },
+  'water-features': {
+    intro: (cityName) =>
+      `Water has a way of making a backyard feel like a completely different place. We design and build pools, spas, and water features for ${cityName} homes that turn your yard into somewhere you actually want to spend time.`,
+    localDetails: (cityName) =>
+      `From custom pool surrounds and spillover spas to standalone water walls, our projects in ${cityName} are designed to integrate with your landscape. We coordinate plumbing, electrical, and hardscaping so everything works together and looks like it belongs.`,
+  },
+  'outdoor-kitchens': {
+    intro: (cityName) =>
+      `Once you cook outside on a real outdoor kitchen, it's hard to go back inside. We build fully equipped outdoor kitchens for ${cityName} homeowners — built-in grills, countertops, sinks, refrigeration, and seating areas designed around how you entertain.`,
+    localDetails: (cityName) =>
+      `Our outdoor kitchens in ${cityName} are built with weather-resistant materials and proper gas, water, and electrical connections. We work with you on the layout so everything is within reach, and the finished space feels like a natural extension of your home.`,
+  },
+  fences: {
+    intro: (cityName) =>
+      `A good fence does more than mark your property line — it defines your space and gives you privacy where you need it. We build custom fences in ${cityName} that look great from both sides and are built to handle wind, weather, and time.`,
+    localDetails: (cityName) =>
+      `We install wood, composite, and metal fences throughout ${cityName}. Every project starts with a property survey and a conversation about what you need — privacy, security, aesthetics, or all three. We set deep posts, use quality hardware, and build to last.`,
+  },
+};
+
 function generateFallbackContent(
   city: City,
   service: Service,
 ): CityServiceContent {
-  const { name: cityName, state } = city;
-  const { title: serviceTitle, shortTitle, description: serviceDesc } = service;
+  const { name: cityName, county } = city;
+  const { shortTitle, slug } = service;
+
+  const template = serviceTemplates[slug];
+  const intro = template
+    ? template.intro(cityName)
+    : `JCustom Deck and Patio designs and builds ${shortTitle.toLowerCase()} for homeowners in ${cityName} and throughout ${county} County. We handle every step from design to installation.`;
+  const localDetails = template
+    ? template.localDetails(cityName)
+    : `From the first consultation through final walkthrough, our team manages every detail of your ${shortTitle.toLowerCase()} project in ${cityName}. We use materials built for North Texas weather and back every build with our workmanship guarantee.`;
 
   return {
-    headline: `${serviceTitle} in ${cityName}, ${state}`,
-    intro: `JCustom Deck and Patio designs and builds exceptional ${shortTitle.toLowerCase()} for homeowners in ${cityName} and throughout ${city.county} County. With over 20 years of experience across the DFW metroplex, we combine expert craftsmanship with premium materials to create outdoor spaces you'll enjoy for years to come.`,
-    localDetails: `From initial design consultation through final installation, our team manages every detail of your ${shortTitle.toLowerCase()} project. We use high-quality materials built to withstand North Texas weather and back every project with our satisfaction guarantee. Whether you're planning a complete backyard transformation or a focused upgrade, we'll work with you to create the right solution for your home in ${cityName}.`,
-    metaTitle: `${shortTitle} in ${cityName}, ${state} | JCustom Deck and Patio`,
-    metaDescription: `Professional ${shortTitle.toLowerCase()} in ${cityName}, TX. Custom design & expert installation by JCustom Deck and Patio. Serving DFW since 2005. Free consultation!`,
+    headline: `${shortTitle} Built for ${cityName} Homes`,
+    intro,
+    localDetails,
+    metaTitle: `${shortTitle} in ${cityName}, TX | JCustom Deck and Patio`,
+    metaDescription: `Professional ${shortTitle.toLowerCase()} in ${cityName}, TX. Custom design & installation by JCustom Deck and Patio. Serving ${county} County since 2005. Call (817) 909-0973.`,
   };
 }

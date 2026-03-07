@@ -1,3 +1,4 @@
-# TODO: Update before launch
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://jcustomdeckandpatio.com/sitemap-index.xml

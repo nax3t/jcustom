@@ -7,6 +7,8 @@ import Footer from '../../components/Footer.astro';
 import { cities } from '../../data/cities';
 import { services } from '../../data/services';
 import { siteConfig } from '../../data/siteConfig';
+import { cityHeroBg } from '../../data/serviceImages';
+import { testimonials } from '../../data/testimonials';
 
 export function getStaticPaths() {
   return cities.map((city) => ({
@@ -22,6 +24,7 @@ const description = `Custom decks, patios, pergolas & outdoor kitchens in ${city
 const canonicalUrl = `${siteConfig.url}/${city.slug}/`;
 
 const nearbyCities = cities.filter((c) => city.nearby.includes(c.slug));
+const testimonial = testimonials[0];
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -43,12 +46,14 @@ const breadcrumbSchema = {
 };
 ---
 
-<Layout title={title} description={description} canonicalUrl={canonicalUrl} schemas={[breadcrumbSchema]}>
+<Layout title={title} description={description} canonicalUrl={canonicalUrl} schemas={[breadcrumbSchema]} preloadImage={cityHeroBg}>
   <LandingNav />
   <main id="main">
     <CityServiceHero
-      headline={`Premium Outdoor Living in ${city.name}, ${city.state}`}
+      headline={`Outdoor Living in ${city.name}`}
       intro={city.description}
+      backgroundImage={cityHeroBg}
+      sectionLabel={`Outdoor Living in ${city.name}`}
       breadcrumbs={[
         { label: 'Home', href: '/' },
         { label: city.name },
@@ -58,8 +63,13 @@ const breadcrumbSchema = {
     <!-- Services Grid -->
     <section class="py-section px-6 md:px-8">
       <div class="max-w-[1318px] mx-auto">
-        <div class="text-center mb-20 sm:mb-12">
-          <h2 class="text-3xl sm:text-[36px] font-semibold leading-[1.196] tracking-tight mb-1">
+        <div
+          class="text-center mb-20 sm:mb-12"
+          x-data
+          x-intersect.once="$el.classList.add('animate-fade-up')"
+        >
+          <div class="section-label justify-center">What We Build</div>
+          <h2 class="font-display text-3xl sm:text-[42px] leading-[1.15] tracking-tight mb-1">
             Our Services in {city.name}
           </h2>
           <p class="text-lg text-gray font-sans-alt">
@@ -99,10 +109,45 @@ const breadcrumbSchema = {
       </div>
     </section>
 
-    <!-- Why Choose Us -->
+    <!-- Process -->
+    <section class="py-section-sm px-6 md:px-8 bg-cream">
+      <div class="max-w-[1100px] mx-auto text-center">
+        <div class="section-label justify-center">How It Works</div>
+        <h2 class="font-display text-3xl sm:text-[42px] leading-[1.15] tracking-tight mb-14">
+          From Vision to Reality
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-12">
+          <div>
+            <div class="text-accent font-display text-5xl mb-4">01</div>
+            <h3 class="text-xl font-semibold tracking-tight mb-3">Design</h3>
+            <p class="text-gray-text leading-relaxed">
+              We visit your property, listen to your ideas, and create a custom plan that fits your space, style, and budget.
+            </p>
+          </div>
+          <div>
+            <div class="text-accent font-display text-5xl mb-4">02</div>
+            <h3 class="text-xl font-semibold tracking-tight mb-3">Build</h3>
+            <p class="text-gray-text leading-relaxed">
+              Our crew handles every detail — from materials and permits to framing and finishing — so you don't have to.
+            </p>
+          </div>
+          <div>
+            <div class="text-accent font-display text-5xl mb-4">03</div>
+            <h3 class="text-xl font-semibold tracking-tight mb-3">Enjoy</h3>
+            <p class="text-gray-text leading-relaxed">
+              Walk into a backyard you're proud of. We do a final walkthrough together and make sure everything is right.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Signals -->
     <section class="py-section-sm px-6 md:px-8 bg-gray-lighter">
       <div class="max-w-[900px] mx-auto text-center">
-        <h2 class="text-3xl sm:text-[36px] font-semibold leading-[1.196] tracking-tight mb-6">
+        <div class="section-label justify-center">Why Us</div>
+        <h2 class="font-display text-3xl sm:text-[42px] leading-[1.15] tracking-tight mb-6">
           Why {city.name} Homeowners Choose Us
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-10">
@@ -111,14 +156,57 @@ const breadcrumbSchema = {
             <div class="text-gray">Years of Experience</div>
           </div>
           <div>
-            <div class="text-4xl font-semibold text-accent mb-2">500+</div>
-            <div class="text-gray">Projects Completed</div>
+            <div class="text-4xl font-semibold text-accent mb-2">4.9★</div>
+            <div class="text-gray">Google Rating</div>
           </div>
           <div>
-            <div class="text-4xl font-semibold text-accent mb-2">100%</div>
-            <div class="text-gray">Satisfaction Guarantee</div>
+            <div class="text-4xl font-semibold text-accent mb-2">A+</div>
+            <div class="text-gray">BBB Rated</div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="relative py-section px-6 md:px-8 overflow-hidden">
+      <div class="absolute inset-0">
+        <img
+          src="/images/full-width-images/section-bg-2.webp"
+          alt=""
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-dark/85"></div>
+      </div>
+      <div class="grain absolute inset-0"></div>
+      <div class="relative z-10 max-w-[800px] mx-auto text-center text-white">
+        <div class="text-accent font-display text-[80px] leading-none mb-2" aria-hidden="true">&ldquo;</div>
+        <blockquote class="font-display text-2xl sm:text-[28px] italic leading-relaxed mb-8">
+          {testimonial.quote}
+        </blockquote>
+        <div class="flex items-center justify-center gap-1 text-accent mb-3">
+          {Array.from({ length: testimonial.stars }).map(() => (
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+          ))}
+        </div>
+        <div class="font-semibold">{testimonial.author}</div>
+        <div class="text-sm text-white/50">{testimonial.project} &middot; {testimonial.source}</div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="relative py-section-sm px-6 md:px-8 bg-dark overflow-hidden">
+      <div class="grain absolute inset-0"></div>
+      <div class="relative z-10 max-w-[800px] mx-auto text-center text-white">
+        <h2 class="font-display text-3xl sm:text-[42px] leading-[1.15] tracking-tight mb-4">
+          Ready to Transform Your Backyard?
+        </h2>
+        <p class="text-white/70 text-lg mb-8 leading-relaxed">
+          Tell us what you have in mind and we'll schedule a free on-site consultation. No pressure, no obligation — just honest advice from people who build this stuff every day.
+        </p>
+        <a href="#contact" class="btn btn-outline">
+          <span>Schedule a Consultation</span>
+        </a>
       </div>
     </section>
 
