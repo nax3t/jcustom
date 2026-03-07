@@ -1,0 +1,9 @@
+# Deny directory listing
+Options -Indexes
+
+# Only allow POST to contact.php (Apache 2.4 syntax)
+<Files "contact.php">
+    <LimitExcept POST>
+        Require all denied
+    </LimitExcept>
+</Files>
