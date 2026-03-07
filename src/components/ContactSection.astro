@@ -5,6 +5,13 @@ const projectTypes = ['Deck', 'Patio', 'Pergola', 'Outdoor Kitchen', 'Fence', 'O
 const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
 ---
 
+<script is:inline>
+  window.compressImage = async function(file, opts) {
+    var mod = await import('/js/browser-image-compression.js');
+    return mod.default(file, opts);
+  };
+</script>
+
 <section class="py-section px-6 md:px-8" id="contact">
   <div class="max-w-[1318px] mx-auto">
     <div class="text-center mb-20 sm:mb-14">
@@ -121,21 +128,24 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
         x-intersect.once="$el.classList.add('animate-fade-up')"
         class="opacity-0"
       >
+        <!-- Row 1: Name (full width) -->
+        <div class="mb-5">
+          <label for="name" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            x-model="form.name"
+            placeholder="Enter your name"
+            required
+            class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
+            :class="errors.name && 'border-accent'"
+            @input="errors.name = ''"
+          />
+        </div>
+
+        <!-- Row 2: Email + Phone -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-          <div>
-            <label for="name" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              x-model="form.name"
-              placeholder="Enter your name"
-              required
-              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
-              :class="errors.name && 'border-accent'"
-              @input="errors.name = ''"
-            />
-          </div>
           <div>
             <label for="email" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Email</label>
             <input
@@ -150,8 +160,23 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
               @input="errors.email = ''"
             />
           </div>
+          <div>
+            <label for="phone" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Phone</label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              x-model="form.phone"
+              placeholder="Enter your phone number"
+              required
+              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
+              :class="errors.phone && 'border-accent'"
+              @input="errors.phone = ''"
+            />
+          </div>
         </div>
 
+        <!-- Row 3: Project Type + Timeline -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
           <div>
             <label for="projectType" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Project Type <span class="normal-case tracking-normal font-normal">(optional)</span></label>
@@ -183,6 +208,7 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
           </div>
         </div>
 
+        <!-- Row 4: Message (full width) -->
         <div class="mb-5">
           <label for="message" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Message</label>
           <textarea
@@ -198,6 +224,34 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
           ></textarea>
         </div>
 
+        <!-- Row 5: Image Upload -->
+        <div class="mb-5">
+          <label for="photos" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Photos of your space <span class="normal-case tracking-normal font-normal">(optional, up to 5)</span></label>
+          <input
+            type="file"
+            name="photos"
+            id="photos"
+            accept="image/*"
+            multiple
+            @change="addFiles($event)"
+            class="w-full text-sm text-gray file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-gray-light file:text-black hover:file:bg-border file:cursor-pointer file:transition-colors"
+          />
+          <!-- Preview Thumbnails -->
+          <div x-show="files.length > 0" class="grid grid-cols-3 sm:grid-cols-5 gap-3 mt-3">
+            <template x-for="(item, index) in files" :key="index">
+              <div class="relative group">
+                <img :src="item.preview" class="w-full aspect-square object-cover" alt="Upload preview" />
+                <button
+                  type="button"
+                  @click="removeFile(index)"
+                  class="absolute top-1 right-1 w-6 h-6 bg-black/70 text-white rounded-full flex items-center justify-center text-xs leading-none opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                  aria-label="Remove image"
+                >&times;</button>
+              </div>
+            </template>
+          </div>
+        </div>
+
         <!-- Honeypot -->
         <div aria-hidden="true" class="absolute -left-[9999px]">
           <input type="text" name="website" x-model="form.website" tabindex="-1" autocomplete="off" />
@@ -205,15 +259,29 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
 
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p class="text-gray text-xs tracking-wide">Name, email, and message are required.</p>
+            <p class="text-gray text-xs tracking-wide">Name, email, phone, and message are required.</p>
             <p class="text-gray-text text-xs tracking-wide mt-1">We typically respond within 1 business day.</p>
           </div>
           <button
             type="submit"
-            :disabled="submitting"
+            :disabled="submitting || compressing"
             class="btn btn-primary disabled:opacity-50"
           >
-            <span x-text="submitting ? 'Sending...' : 'Submit Message'"></span>
+            <span x-show="!submitting && !compressing">Submit Message</span>
+            <span x-show="compressing" x-cloak class="inline-flex items-center gap-2">
+              <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Compressing Images...
+            </span>
+            <span x-show="submitting" x-cloak class="inline-flex items-center gap-2">
+              <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Sending...
+            </span>
           </button>
         </div>
 
@@ -239,19 +307,58 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
       form: {
         name: '',
         email: '',
+        phone: '',
         projectType: '',
         timeline: '',
         message: '',
-        website: '', // honeypot
+        website: '',
       },
+      files: [],
       errors: {
         name: '',
         email: '',
+        phone: '',
         message: '',
       },
       submitting: false,
+      compressing: false,
       resultMessage: '',
       resultType: '',
+
+      addFiles(event) {
+        const newFiles = Array.from(event.target.files);
+        const total = this.files.length + newFiles.length;
+
+        if (total > 5) {
+          this.resultMessage = 'You can upload a maximum of 5 images.';
+          this.resultType = 'error';
+          event.target.value = '';
+          return;
+        }
+
+        for (const file of newFiles) {
+          if (file.size > 10 * 1024 * 1024) {
+            this.resultMessage = `File "${file.name}" exceeds the 10MB limit.`;
+            this.resultType = 'error';
+            event.target.value = '';
+            return;
+          }
+        }
+
+        for (const file of newFiles) {
+          this.files.push({
+            file: file,
+            preview: URL.createObjectURL(file),
+          });
+        }
+
+        event.target.value = '';
+      },
+
+      removeFile(index) {
+        URL.revokeObjectURL(this.files[index].preview);
+        this.files.splice(index, 1);
+      },
 
       validate() {
         let valid = true;
@@ -266,6 +373,10 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
           this.errors.email = 'required';
           valid = false;
         }
+        if (!this.form.phone.trim()) {
+          this.errors.phone = 'required';
+          valid = false;
+        }
         if (!this.form.message.trim()) {
           this.errors.message = 'required';
           valid = false;
@@ -278,8 +389,7 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
 
         // Honeypot check
         if (this.form.website) {
-          this.resultMessage =
-            'Thank you! Your message has been sent.';
+          this.resultMessage = 'Thank you! Your message has been sent.';
           this.resultType = 'success';
           return;
         }
@@ -289,17 +399,38 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
         this.submitting = true;
 
         try {
-          const res = await fetch('/api/contact', {
+          let compressedFiles = [];
+
+          if (this.files.length > 0) {
+            this.compressing = true;
+            for (const item of this.files) {
+              const compressed = await window.compressImage(item.file, {
+                maxSizeMB: 1.5,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
+                fileType: 'image/jpeg',
+              });
+              compressedFiles.push(compressed);
+            }
+            this.compressing = false;
+          }
+
+          const formData = new FormData();
+          formData.append('name', this.form.name);
+          formData.append('email', this.form.email);
+          formData.append('phone', this.form.phone);
+          formData.append('projectType', this.form.projectType);
+          formData.append('timeline', this.form.timeline);
+          formData.append('message', this.form.message);
+          formData.append('website', this.form.website);
+
+          for (const file of compressedFiles) {
+            formData.append('files[]', file);
+          }
+
+          const res = await fetch('/api/contact.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: this.form.name,
-              email: this.form.email,
-              projectType: this.form.projectType,
-              timeline: this.form.timeline,
-              message: this.form.message,
-              website: this.form.website,
-            }),
+            body: formData,
           });
 
           const data = await res.json();
@@ -309,15 +440,21 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
           if (data.type === 'success') {
             this.form.name = '';
             this.form.email = '';
+            this.form.phone = '';
             this.form.projectType = '';
             this.form.timeline = '';
             this.form.message = '';
+            for (const item of this.files) {
+              URL.revokeObjectURL(item.preview);
+            }
+            this.files = [];
           }
         } catch {
           this.resultMessage =
             'Sorry, there was an error sending your message. Please try again or call us directly.';
           this.resultType = 'error';
         } finally {
+          this.compressing = false;
           this.submitting = false;
         }
       },
