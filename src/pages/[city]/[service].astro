@@ -95,7 +95,7 @@ const serviceSchema = {
       <div class="max-w-[1318px] mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {images?.feature1 && (
-            <div class="overflow-hidden rounded-2xl">
+            <div class="overflow-hidden">
               <img
                 src={images.feature1}
                 alt={`${service.shortTitle} project by JCustom Deck and Patio`}
@@ -179,7 +179,7 @@ const serviceSchema = {
     </section>
 
     <!-- Cross Links -->
-    <section class="py-16 px-6 md:px-8">
+    <section class="py-16 px-6 md:px-8 bg-gray-lighter">
       <div class="max-w-[1318px] mx-auto">
         <!-- Other Services -->
         <div class="text-center mb-10">
@@ -188,7 +188,7 @@ const serviceSchema = {
             {otherServices.map((s) => (
               <a
                 href={`/${city.slug}/${s.slug}/`}
-                class="px-4 py-2 text-sm border border-border rounded-full hover:border-black hover:text-black transition-colors"
+                class="px-4 py-2 text-sm border border-black/15 text-gray-text hover:border-black hover:text-black transition-colors"
               >
                 {s.shortTitle}
               </a>
@@ -206,7 +206,7 @@ const serviceSchema = {
               {nearbyCities.map((nc) => (
                 <a
                   href={`/${nc.slug}/${service.slug}/`}
-                  class="px-4 py-2 text-sm border border-border rounded-full hover:border-black hover:text-black transition-colors"
+                  class="px-4 py-2 text-sm border border-black/15 text-gray-text hover:border-black hover:text-black transition-colors"
                 >
                   {nc.name}
                 </a>

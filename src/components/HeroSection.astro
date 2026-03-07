@@ -36,7 +36,7 @@
       </div>
 
       <!-- Display serif headline -->
-      <h1 class="font-display font-semibold text-[clamp(3rem,8vw,7rem)] leading-[1.05] tracking-[-0.02em] mb-6 max-w-[900px]" style="text-shadow: 0 2px 30px rgba(0,0,0,0.4);">
+      <h1 class="font-display font-semibold text-[clamp(3rem,8vw,7rem)] leading-[1.05] tracking-[-0.02em] mb-3 max-w-[900px]" style="text-shadow: 0 2px 30px rgba(0,0,0,0.4);">
         <span
           x-text="currentText"
           :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
@@ -82,12 +82,12 @@
   document.addEventListener('alpine:init', () => {
     Alpine.data('textRotator', () => ({
       phrases: [
-        'Bespoke Designs',
-        'Timeless Beauty',
-        'Where Nature Meets Luxury',
+        'Elegant',
+        'Timeless',
+        'Craftsmanship',
       ],
       currentIndex: 0,
-      currentText: 'Bespoke Designs',
+      currentText: 'Elegant',
       visible: true,
 
       init() {

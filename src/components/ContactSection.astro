@@ -1,16 +1,19 @@
 ---
 import { siteConfig } from '../data/siteConfig';
 
+const showForm = import.meta.env.PUBLIC_CONTACT_FORM === 'true';
 const projectTypes = ['Deck', 'Patio', 'Pergola', 'Outdoor Kitchen', 'Fence', 'Other'];
-const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
+const timelines = ['As soon as possible', 'Next 3 months', '3-6 months', 'Just exploring'];
 ---
 
-<script is:inline>
-  window.compressImage = async function(file, opts) {
-    var mod = await import('/js/browser-image-compression.js');
-    return mod.default(file, opts);
-  };
-</script>
+{showForm && (
+  <script is:inline>
+    window.compressImage = async function(file, opts) {
+      var mod = await import('/js/browser-image-compression.js');
+      return mod.default(file, opts);
+    };
+  </script>
+)}
 
 <section class="py-section px-6 md:px-8" id="contact">
   <div class="max-w-[1318px] mx-auto">
@@ -26,438 +29,469 @@ const timelines = ['Next 3 months', '3-6 months', 'Just exploring'];
       </p>
     </div>
 
-    <!-- Contact Info Cards -->
-    <div class="max-w-[900px] mx-auto mb-20 sm:mb-12">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-        <!-- Phone -->
-        <div
-          x-data
-          x-intersect.once="$el.classList.add('animate-fade-in')"
-          class="relative pl-[71px] pt-[6px] opacity-0"
-        >
-          <div class="absolute left-[3px] top-[10px] w-[54px] h-[54px] bg-black flex items-center justify-center">
-            <svg class="w-[18px] h-[18px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-          </div>
-          <div class="text-[22px] font-semibold leading-[1.3] tracking-[-0.02em]">Call Us</div>
-          <a
-            href={siteConfig.phoneHref}
-            class="text-gray font-sans-alt hover:text-black transition-colors"
-          >
-            {siteConfig.phone}
-          </a>
-        </div>
-
-        <!-- Address -->
-        <div
-          x-data="{ mapOpen: false }"
-          x-intersect.once="$el.classList.add('animate-fade-in')"
-          class="relative pl-[71px] pt-[6px] opacity-0"
-          style="animation-delay: 0.1s"
-        >
-          <div class="absolute left-[3px] top-[10px] w-[54px] h-[54px] bg-black flex items-center justify-center">
-            <svg class="w-[18px] h-[18px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </div>
-          <div class="text-[22px] font-semibold leading-[1.3] tracking-[-0.02em]">Address</div>
-          <div class="text-gray font-sans-alt">{siteConfig.address.street}</div>
-          <div class="mt-[11px]">
-            <button
-              @click="mapOpen = !mapOpen"
-              class="ci-link cursor-pointer bg-transparent border-none p-0"
-              x-text="mapOpen ? 'Close Map' : 'See on the Map'"
-            ></button>
-          </div>
+    {showForm ? (
+      <!-- Contact Info Cards -->
+      <div class="max-w-[900px] mx-auto mb-20 sm:mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <!-- Phone -->
           <div
-            x-show="mapOpen"
-            x-transition
-            class="mt-4 -ml-[71px]"
+            x-data
+            x-intersect.once="$el.classList.add('animate-fade-in')"
+            class="relative pl-[71px] pt-[6px] opacity-0"
           >
-            <iframe
-              title="JCustom Deck and Patio location map"
-              src={siteConfig.mapEmbed}
-              width="100%"
-              height="250"
-              style="border: 0"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <div class="absolute left-[3px] top-[10px] w-[54px] h-[54px] bg-black flex items-center justify-center">
+              <svg class="w-[18px] h-[18px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+            </div>
+            <div class="text-[22px] font-semibold leading-[1.3] tracking-[-0.02em]">Call Us</div>
+            <a
+              href={siteConfig.phoneHref}
+              class="text-gray font-sans-alt hover:text-black transition-colors"
+            >
+              {siteConfig.phone}
+            </a>
           </div>
-        </div>
 
-        <!-- Email -->
-        <div
-          x-data
-          x-intersect.once="$el.classList.add('animate-fade-in')"
-          class="relative pl-[71px] pt-[6px] opacity-0"
-          style="animation-delay: 0.2s"
-        >
-          <div class="absolute left-[3px] top-[10px] w-[54px] h-[54px] bg-black flex items-center justify-center">
-            <svg class="w-[18px] h-[18px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div class="text-[22px] font-semibold leading-[1.3] tracking-[-0.02em]">Email</div>
-          <a
-            href={`mailto:${siteConfig.email}`}
-            class="text-gray font-sans-alt hover:text-black transition-colors"
+          <!-- Address -->
+          <div
+            x-data="{ mapOpen: false }"
+            x-intersect.once="$el.classList.add('animate-fade-in')"
+            class="relative pl-[71px] pt-[6px] opacity-0"
+            style="animation-delay: 0.1s"
           >
-            {siteConfig.email}
-          </a>
-          <div class="mt-[11px]">
+            <div class="absolute left-[3px] top-[10px] w-[54px] h-[54px] bg-black flex items-center justify-center">
+              <svg class="w-[18px] h-[18px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div class="text-[22px] font-semibold leading-[1.3] tracking-[-0.02em]">Address</div>
+            <div class="text-gray font-sans-alt">{siteConfig.address.street}</div>
+            <div class="mt-[11px]">
+              <button
+                @click="mapOpen = !mapOpen"
+                class="ci-link cursor-pointer bg-transparent border-none p-0"
+                x-text="mapOpen ? 'Close Map' : 'See on the Map'"
+              ></button>
+            </div>
+            <div
+              x-show="mapOpen"
+              x-transition
+              class="mt-4 -ml-[71px]"
+            >
+              <iframe
+                title="JCustom Deck and Patio location map"
+                src={siteConfig.mapEmbed}
+                width="100%"
+                height="250"
+                style="border: 0"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div
+            x-data
+            x-intersect.once="$el.classList.add('animate-fade-in')"
+            class="relative pl-[71px] pt-[6px] opacity-0"
+            style="animation-delay: 0.2s"
+          >
+            <div class="absolute left-[3px] top-[10px] w-[54px] h-[54px] bg-black flex items-center justify-center">
+              <svg class="w-[18px] h-[18px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="text-[22px] font-semibold leading-[1.3] tracking-[-0.02em]">Email</div>
             <a
               href={`mailto:${siteConfig.email}`}
-              class="ci-link"
+              class="text-gray font-sans-alt hover:text-black transition-colors"
             >
-              Say Hello
+              {siteConfig.email}
             </a>
+            <div class="mt-[11px]">
+              <a
+                href={`mailto:${siteConfig.email}`}
+                class="ci-link"
+              >
+                Say Hello
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Contact Form -->
-    <div class="max-w-[900px] mx-auto">
-      <form
-        x-data="contactForm"
-        @submit.prevent="submitForm"
-        x-intersect.once="$el.classList.add('animate-fade-up')"
-        class="opacity-0"
-      >
-        <!-- Row 1: Name (full width) -->
-        <div class="mb-5">
-          <label for="name" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            x-model="form.name"
-            placeholder="Enter your name"
-            required
-            class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
-            :class="errors.name && 'border-accent'"
-            @input="errors.name = ''"
-          />
-        </div>
-
-        <!-- Row 2: Email + Phone -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-          <div>
-            <label for="email" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              x-model="form.email"
-              placeholder="Enter your email"
-              required
-              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
-              :class="errors.email && 'border-accent'"
-              @input="errors.email = ''"
-            />
-          </div>
-          <div>
-            <label for="phone" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Phone</label>
-            <input
-              type="tel"
-              name="phone"
-              id="phone"
-              x-model="form.phone"
-              placeholder="Enter your phone number"
-              required
-              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
-              :class="errors.phone && 'border-accent'"
-              @input="errors.phone = ''"
-            />
-          </div>
-        </div>
-
-        <!-- Row 3: Project Type + Timeline -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-          <div>
-            <label for="projectType" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Project Type <span class="normal-case tracking-normal font-normal">(optional)</span></label>
-            <select
-              name="projectType"
-              id="projectType"
-              x-model="form.projectType"
-              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
-            >
-              <option value="">Select a project type</option>
-              {projectTypes.map((type) => (
-                <option value={type}>{type}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label for="timeline" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Timeline <span class="normal-case tracking-normal font-normal">(optional)</span></label>
-            <select
-              name="timeline"
-              id="timeline"
-              x-model="form.timeline"
-              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
-            >
-              <option value="">Select a timeline</option>
-              {timelines.map((t) => (
-                <option value={t}>{t}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <!-- Row 4: Message (full width) -->
-        <div class="mb-5">
-          <label for="message" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Message</label>
-          <textarea
-            name="message"
-            id="message"
-            x-model="form.message"
-            placeholder="Enter your message"
-            required
-            rows="4"
-            class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors resize-none"
-            :class="errors.message && 'border-accent'"
-            @input="errors.message = ''"
-          ></textarea>
-        </div>
-
-        <!-- Row 5: Image Upload -->
-        <div class="mb-5">
-          <label for="photos" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Photos of your space <span class="normal-case tracking-normal font-normal">(optional, up to 5)</span></label>
-          <input
-            type="file"
-            name="photos"
-            id="photos"
-            accept="image/*"
-            multiple
-            @change="addFiles($event)"
-            class="w-full text-sm text-gray file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-gray-light file:text-black hover:file:bg-border file:cursor-pointer file:transition-colors"
-          />
-          <!-- Preview Thumbnails -->
-          <div x-show="files.length > 0" class="grid grid-cols-3 sm:grid-cols-5 gap-3 mt-3">
-            <template x-for="(item, index) in files" :key="index">
-              <div class="relative group">
-                <img :src="item.preview" class="w-full aspect-square object-cover" alt="Upload preview" />
-                <button
-                  type="button"
-                  @click="removeFile(index)"
-                  class="absolute top-1 right-1 w-6 h-6 bg-black/70 text-white rounded-full flex items-center justify-center text-xs leading-none opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                  aria-label="Remove image"
-                >&times;</button>
-              </div>
-            </template>
-          </div>
-        </div>
-
-        <!-- Honeypot -->
-        <div aria-hidden="true" class="absolute -left-[9999px]">
-          <input type="text" name="website" x-model="form.website" tabindex="-1" autocomplete="off" />
-        </div>
-
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <p class="text-gray text-xs tracking-wide">Name, email, phone, and message are required.</p>
-            <p class="text-gray-text text-xs tracking-wide mt-1">We typically respond within 1 business day.</p>
-          </div>
-          <button
-            type="submit"
-            :disabled="submitting || compressing"
-            class="btn btn-primary disabled:opacity-50"
-          >
-            <span x-show="!submitting && !compressing">Submit Message</span>
-            <span x-show="compressing" x-cloak class="inline-flex items-center gap-2">
-              <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-              Compressing Images...
-            </span>
-            <span x-show="submitting" x-cloak class="inline-flex items-center gap-2">
-              <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-              Sending...
-            </span>
-          </button>
-        </div>
-
-        <!-- Result -->
-        <div
-          x-show="resultMessage"
-          x-transition
-          class="mt-6 text-base"
-          :class="resultType === 'success' ? 'text-green-600' : 'text-red-600'"
-          role="region"
-          aria-live="polite"
+      <!-- Contact Form -->
+      <div class="max-w-[900px] mx-auto">
+        <form
+          x-data="contactForm"
+          @submit.prevent="submitForm"
+          x-intersect.once="$el.classList.add('animate-fade-up')"
+          class="opacity-0"
         >
-          <span x-text="resultMessage"></span>
+          <!-- Row 1: Name (full width) -->
+          <div class="mb-5">
+            <label for="name" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              x-model="form.name"
+              placeholder="Enter your name"
+              required
+              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
+              :class="errors.name && 'border-accent'"
+              @input="errors.name = ''"
+            />
+          </div>
+
+          <!-- Row 2: Email + Phone -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label for="email" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                x-model="form.email"
+                placeholder="Enter your email"
+                required
+                class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
+                :class="errors.email && 'border-accent'"
+                @input="errors.email = ''"
+              />
+            </div>
+            <div>
+              <label for="phone" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                x-model="form.phone"
+                placeholder="Enter your phone number"
+                required
+                class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
+                :class="errors.phone && 'border-accent'"
+                @input="errors.phone = ''"
+              />
+            </div>
+          </div>
+
+          <!-- Row 3: Project Type + Timeline -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label for="projectType" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Project Type <span class="normal-case tracking-normal font-normal">(optional)</span></label>
+              <select
+                name="projectType"
+                id="projectType"
+                x-model="form.projectType"
+                class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
+              >
+                <option value="">Select a project type</option>
+                {projectTypes.map((type) => (
+                  <option value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label for="timeline" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Timeline <span class="normal-case tracking-normal font-normal">(optional)</span></label>
+              <select
+                name="timeline"
+                id="timeline"
+                x-model="form.timeline"
+                class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors"
+              >
+                <option value="">Select a timeline</option>
+                {timelines.map((t) => (
+                  <option value={t}>{t}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 4: Message (full width) -->
+          <div class="mb-5">
+            <label for="message" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Message</label>
+            <textarea
+              name="message"
+              id="message"
+              x-model="form.message"
+              placeholder="Enter your message"
+              required
+              rows="4"
+              class="w-full px-5 py-4 text-base border border-border bg-transparent focus:outline-none focus:border-black transition-colors resize-none"
+              :class="errors.message && 'border-accent'"
+              @input="errors.message = ''"
+            ></textarea>
+          </div>
+
+          <!-- Row 5: Image Upload -->
+          <div class="mb-5">
+            <label for="photos" class="block text-[12px] font-semibold uppercase tracking-[0.1em] mb-2 text-gray">Photos of your space <span class="normal-case tracking-normal font-normal">(optional, up to 5)</span></label>
+            <input
+              type="file"
+              name="photos"
+              id="photos"
+              accept="image/*"
+              multiple
+              @change="addFiles($event)"
+              class="w-full text-sm text-gray file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-gray-light file:text-black hover:file:bg-border file:cursor-pointer file:transition-colors"
+            />
+            <!-- Preview Thumbnails -->
+            <div x-show="files.length > 0" class="grid grid-cols-3 sm:grid-cols-5 gap-3 mt-3">
+              <template x-for="(item, index) in files" :key="index">
+                <div class="relative group">
+                  <img :src="item.preview" class="w-full aspect-square object-cover" alt="Upload preview" />
+                  <button
+                    type="button"
+                    @click="removeFile(index)"
+                    class="absolute top-1 right-1 w-6 h-6 bg-black/70 text-white rounded-full flex items-center justify-center text-xs leading-none opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    aria-label="Remove image"
+                  >&times;</button>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Honeypot -->
+          <div aria-hidden="true" class="absolute -left-[9999px]">
+            <input type="text" name="website" x-model="form.website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <p class="text-gray text-xs tracking-wide">Name, email, phone, and message are required.</p>
+              <p class="text-gray-text text-xs tracking-wide mt-1">We typically respond within 1 business day.</p>
+            </div>
+            <button
+              type="submit"
+              :disabled="submitting || compressing"
+              class="btn btn-primary disabled:opacity-50"
+            >
+              <span x-show="!submitting && !compressing">Submit Message</span>
+              <span x-show="compressing" x-cloak class="inline-flex items-center gap-2">
+                <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Compressing Images...
+              </span>
+              <span x-show="submitting" x-cloak class="inline-flex items-center gap-2">
+                <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Sending...
+              </span>
+            </button>
+          </div>
+
+          <!-- Result -->
+          <div
+            x-show="resultMessage"
+            x-transition
+            class="mt-6 text-base"
+            :class="resultType === 'success' ? 'text-green-600' : 'text-red-600'"
+            role="region"
+            aria-live="polite"
+          >
+            <span x-text="resultMessage"></span>
+          </div>
+        </form>
+      </div>
+    ) : (
+      <!-- Temporary: Phone & Email only (until SMTP is configured) -->
+      <div
+        class="max-w-[600px] mx-auto text-center"
+        x-data
+        x-intersect.once="$el.classList.add('animate-fade-up')"
+        style="opacity: 0"
+      >
+        <p class="text-gray font-sans-alt mb-10">
+          Ready to start your project? Give us a call or send an email — we typically respond within 1 business day.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <a href={siteConfig.phoneHref} class="btn btn-primary">
+            <svg class="w-4 h-4 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span>{siteConfig.phone}</span>
+          </a>
+          <a href={`mailto:${siteConfig.email}`} class="btn btn-dark-outline">
+            <svg class="w-4 h-4 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>{siteConfig.email}</span>
+          </a>
         </div>
-      </form>
-    </div>
+      </div>
+    )}
   </div>
 </section>
 
-<script>
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('contactForm', () => ({
-      form: {
-        name: '',
-        email: '',
-        phone: '',
-        projectType: '',
-        timeline: '',
-        message: '',
-        website: '',
-      },
-      files: [],
-      errors: {
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-      },
-      submitting: false,
-      compressing: false,
-      resultMessage: '',
-      resultType: '',
+{showForm && (
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('contactForm', () => ({
+        form: {
+          name: '',
+          email: '',
+          phone: '',
+          projectType: '',
+          timeline: '',
+          message: '',
+          website: '',
+        },
+        files: [],
+        errors: {
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+        },
+        submitting: false,
+        compressing: false,
+        resultMessage: '',
+        resultType: '',
 
-      addFiles(event) {
-        const newFiles = Array.from(event.target.files);
-        const total = this.files.length + newFiles.length;
+        addFiles(event) {
+          const newFiles = Array.from(event.target.files);
+          const total = this.files.length + newFiles.length;
 
-        if (total > 5) {
-          this.resultMessage = 'You can upload a maximum of 5 images.';
-          this.resultType = 'error';
-          event.target.value = '';
-          return;
-        }
-
-        for (const file of newFiles) {
-          if (file.size > 10 * 1024 * 1024) {
-            this.resultMessage = `File "${file.name}" exceeds the 10MB limit.`;
+          if (total > 5) {
+            this.resultMessage = 'You can upload a maximum of 5 images.';
             this.resultType = 'error';
             event.target.value = '';
             return;
           }
-        }
 
-        for (const file of newFiles) {
-          this.files.push({
-            file: file,
-            preview: URL.createObjectURL(file),
-          });
-        }
-
-        event.target.value = '';
-      },
-
-      removeFile(index) {
-        URL.revokeObjectURL(this.files[index].preview);
-        this.files.splice(index, 1);
-      },
-
-      validate() {
-        let valid = true;
-        if (!this.form.name.trim() || this.form.name.length < 3) {
-          this.errors.name = 'required';
-          valid = false;
-        }
-        if (
-          !this.form.email.trim() ||
-          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)
-        ) {
-          this.errors.email = 'required';
-          valid = false;
-        }
-        if (!this.form.phone.trim()) {
-          this.errors.phone = 'required';
-          valid = false;
-        }
-        if (!this.form.message.trim()) {
-          this.errors.message = 'required';
-          valid = false;
-        }
-        return valid;
-      },
-
-      async submitForm() {
-        this.resultMessage = '';
-
-        // Honeypot check
-        if (this.form.website) {
-          this.resultMessage = 'Thank you! Your message has been sent.';
-          this.resultType = 'success';
-          return;
-        }
-
-        if (!this.validate()) return;
-
-        this.submitting = true;
-
-        try {
-          let compressedFiles = [];
-
-          if (this.files.length > 0) {
-            this.compressing = true;
-            for (const item of this.files) {
-              const compressed = await window.compressImage(item.file, {
-                maxSizeMB: 1.5,
-                maxWidthOrHeight: 1920,
-                useWebWorker: true,
-                fileType: 'image/jpeg',
-              });
-              compressedFiles.push(compressed);
+          for (const file of newFiles) {
+            if (file.size > 10 * 1024 * 1024) {
+              this.resultMessage = `File "${file.name}" exceeds the 10MB limit.`;
+              this.resultType = 'error';
+              event.target.value = '';
+              return;
             }
+          }
+
+          for (const file of newFiles) {
+            this.files.push({
+              file: file,
+              preview: URL.createObjectURL(file),
+            });
+          }
+
+          event.target.value = '';
+        },
+
+        removeFile(index) {
+          URL.revokeObjectURL(this.files[index].preview);
+          this.files.splice(index, 1);
+        },
+
+        validate() {
+          let valid = true;
+          if (!this.form.name.trim() || this.form.name.length < 3) {
+            this.errors.name = 'required';
+            valid = false;
+          }
+          if (
+            !this.form.email.trim() ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)
+          ) {
+            this.errors.email = 'required';
+            valid = false;
+          }
+          if (!this.form.phone.trim()) {
+            this.errors.phone = 'required';
+            valid = false;
+          }
+          if (!this.form.message.trim()) {
+            this.errors.message = 'required';
+            valid = false;
+          }
+          return valid;
+        },
+
+        async submitForm() {
+          this.resultMessage = '';
+
+          // Honeypot check
+          if (this.form.website) {
+            this.resultMessage = 'Thank you! Your message has been sent.';
+            this.resultType = 'success';
+            return;
+          }
+
+          if (!this.validate()) return;
+
+          this.submitting = true;
+
+          try {
+            let compressedFiles = [];
+
+            if (this.files.length > 0) {
+              this.compressing = true;
+              for (const item of this.files) {
+                const compressed = await window.compressImage(item.file, {
+                  maxSizeMB: 1.5,
+                  maxWidthOrHeight: 1920,
+                  useWebWorker: true,
+                  fileType: 'image/jpeg',
+                });
+                compressedFiles.push(compressed);
+              }
+              this.compressing = false;
+            }
+
+            const formData = new FormData();
+            formData.append('name', this.form.name);
+            formData.append('email', this.form.email);
+            formData.append('phone', this.form.phone);
+            formData.append('projectType', this.form.projectType);
+            formData.append('timeline', this.form.timeline);
+            formData.append('message', this.form.message);
+            formData.append('website', this.form.website);
+
+            for (const file of compressedFiles) {
+              formData.append('files[]', file);
+            }
+
+            const res = await fetch('/api/contact.php', {
+              method: 'POST',
+              body: formData,
+            });
+
+            const data = await res.json();
+            this.resultMessage = data.text;
+            this.resultType = data.type;
+
+            if (data.type === 'success') {
+              this.form.name = '';
+              this.form.email = '';
+              this.form.phone = '';
+              this.form.projectType = '';
+              this.form.timeline = '';
+              this.form.message = '';
+              for (const item of this.files) {
+                URL.revokeObjectURL(item.preview);
+              }
+              this.files = [];
+            }
+          } catch {
+            this.resultMessage =
+              'Sorry, there was an error sending your message. Please try again or call us directly.';
+            this.resultType = 'error';
+          } finally {
             this.compressing = false;
+            this.submitting = false;
           }
-
-          const formData = new FormData();
-          formData.append('name', this.form.name);
-          formData.append('email', this.form.email);
-          formData.append('phone', this.form.phone);
-          formData.append('projectType', this.form.projectType);
-          formData.append('timeline', this.form.timeline);
-          formData.append('message', this.form.message);
-          formData.append('website', this.form.website);
-
-          for (const file of compressedFiles) {
-            formData.append('files[]', file);
-          }
-
-          const res = await fetch('/api/contact.php', {
-            method: 'POST',
-            body: formData,
-          });
-
-          const data = await res.json();
-          this.resultMessage = data.text;
-          this.resultType = data.type;
-
-          if (data.type === 'success') {
-            this.form.name = '';
-            this.form.email = '';
-            this.form.phone = '';
-            this.form.projectType = '';
-            this.form.timeline = '';
-            this.form.message = '';
-            for (const item of this.files) {
-              URL.revokeObjectURL(item.preview);
-            }
-            this.files = [];
-          }
-        } catch {
-          this.resultMessage =
-            'Sorry, there was an error sending your message. Please try again or call us directly.';
-          this.resultType = 'error';
-        } finally {
-          this.compressing = false;
-          this.submitting = false;
-        }
-      },
-    }));
-  });
-</script>
+        },
+      }));
+    });
+  </script>
+)}

@@ -4,18 +4,24 @@ import { cities } from '../data/cities';
 const sortedCities = [...cities].sort((a, b) => a.name.localeCompare(b.name));
 ---
 
-<section class="py-10 px-6 md:px-8 border-t border-border/60" id="service-areas">
-  <div class="max-w-[1100px] mx-auto text-center">
-    <p class="text-xs font-semibold uppercase tracking-[0.15em] text-gray mb-4">
+<section
+  class="relative py-16 px-6 md:px-8 text-white bg-cover bg-top bg-fixed overflow-hidden grain"
+  style="background-image: url('/images/full-width-images/section-bg-3.webp');"
+  id="service-areas"
+>
+  <div class="absolute inset-0 bg-black/75"></div>
+
+  <div class="relative z-10 max-w-[900px] mx-auto text-center">
+    <p class="section-label section-label-light justify-center mb-6">
       Serving the DFW Metroplex
     </p>
-    <p class="text-sm text-gray-text leading-relaxed">
+    <p class="text-[15px] leading-loose text-white/40">
       {sortedCities.map((city, i) => (
         <>
           <a
             href={`/${city.slug}/`}
-            class="hover:text-black transition-colors duration-200"
-          >{city.name}</a>{i < sortedCities.length - 1 && <span class="mx-1.5 text-border">&middot;</span>}
+            class="text-white/50 hover:text-white transition-colors duration-200"
+          >{city.name}</a>{i < sortedCities.length - 1 && <span class="mx-1">&middot;</span>}
         </>
       ))}
     </p>

@@ -37,13 +37,13 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
           const image = (await imageModule()).default;
 
           return (
-            <div class="overflow-hidden rounded-2xl">
+            <div class="overflow-hidden h-[260px]">
               <Image
                 src={image}
                 alt={item.alt}
                 width={400}
                 height={340}
-                class="w-full h-[260px] object-cover hover:scale-105 transition-transform duration-300"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
             </div>
